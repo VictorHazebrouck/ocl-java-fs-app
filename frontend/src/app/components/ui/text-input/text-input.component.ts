@@ -1,0 +1,14 @@
+import { NgClass } from "@angular/common";
+import { Component, input } from "@angular/core";
+
+@Component({
+  selector: "text-input-component",
+  imports: [NgClass],
+  templateUrl: "./text-input.component.html",
+  host: { style: "display: contents;" },
+})
+export class TextInputComponent {
+  class = input("");
+  name = input("");
+  placeholder = input("");
+}

@@ -1,0 +1,24 @@
+<div class="h-dvh w-dvw flex flex-col bg-white">
+  <header-component />
+  <three-parts-layout class="h-full">
+    <ng-container layout-left>
+      <button-component routerLink="/sign" class="m-15"> < </button-component>
+    </ng-container>
+
+    <ng-container layout-middle>
+      <div class="h-full flex flex-col justify-center items-center gap-8">
+        <h1 class="text-2xl">Inscription</h1>
+
+        <div class="flex flex-col gap-4">
+          <text-input-with-label-component label="Nom d'utilisateur" />
+          <text-input-with-label-component label="Addresse e-mail" />
+          <text-input-with-label-component label="Mot de passe" />
+        </div>
+
+        <button-component variant="primary">S'inscrire</button-component>
+      </div>
+    </ng-container>
+
+    <!-- blank -->
+  </three-parts-layout>
+</div>

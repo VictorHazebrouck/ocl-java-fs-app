@@ -1,0 +1,29 @@
+<div class="h-dvh w-dvw flex flex-col bg-white">
+  <header-component />
+  <div class="h-full flex flex-col p-8 gap-6">
+    <three-parts-layout class="items-center">
+      <ng-container layout-left>
+        <button-component variant="primary" routerLink="/article-create">
+          Créer un article
+        </button-component>
+      </ng-container>
+
+      <ng-container layout-right>
+        <button-component variant="transparent" class="ml-auto"> Trier par </button-component>
+      </ng-container>
+    </three-parts-layout>
+
+    <grid-layout class="h-full overflow-y-auto pb-3">
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+      <article-card-component />
+    </grid-layout>
+  </div>
+</div>
