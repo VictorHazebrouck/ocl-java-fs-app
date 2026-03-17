@@ -1,21 +1,21 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
   <header-full-component />
   <div class="flex h-full w-full flex-col gap-6 p-8">
-    <three-parts-layout class="items-center">
+    <three-parts-layout class="items-center gap-1">
       <ng-container layout-left>
-        <button-component variant="primary" routerLink="/article-create">
+        <button-component variant="primary" class="mx-auto md:mx-0" routerLink="/article-create">
           Créer un article
         </button-component>
       </ng-container>
 
       <ng-container layout-right>
-        <button-component variant="transparent" class="ml-auto" (click)="toggleSortBy()">
+        <button-component
+          variant="transparent"
+          class="mx-auto md:mx-0 md:ml-auto"
+          (click)="toggleSortBy()"
+        >
           <span>Trier par</span>
-          @if (sortBy() === "asc") {
-          <ng-icon name="lucideArrowUp" />
-          } @else {
-          <ng-icon name="lucideArrowDown" />
-          }
+          <ng-icon [name]="sortBy() === 'asc' ? 'lucideArrowUp' : 'lucideArrowDown'" />
         </button-component>
       </ng-container>
     </three-parts-layout>

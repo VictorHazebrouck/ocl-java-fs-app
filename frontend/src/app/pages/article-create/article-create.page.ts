@@ -5,6 +5,8 @@ import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/th
 import { ButtonComponent } from "../../components/ui/button/button.component";
 import { TextInputComponent } from "../../components/ui/text-input/text-input.component";
 import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
+import { NgIcon, provideIcons } from "@ng-icons/core";
+import { lucideArrowLeft } from "@ng-icons/lucide";
 
 @Component({
   selector: "article-create-page",
@@ -15,7 +17,9 @@ import { TextareaComponent } from "../../components/ui/textarea/textarea.compone
     TextInputComponent,
     RouterLink,
     TextareaComponent,
+    NgIcon,
   ],
+  viewProviders: [provideIcons({ lucideArrowLeft })],
   templateUrl: "./article-create.page.html",
   host: { style: "display: contents;" },
 })
