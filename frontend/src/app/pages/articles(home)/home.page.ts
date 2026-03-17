@@ -6,6 +6,8 @@ import { GridLayout } from "../../components/layouts/grid-layout/grid.layout";
 import { RouterLink } from "@angular/router";
 import { ScrollComponent } from "../../components/ui/scroll/scroll.component";
 import { HeaderFullComponent } from "../../components/header-full/header-full.component";
+import { NgIcon, provideIcons } from "@ng-icons/core";
+import { lucideArrowDown, lucideArrowUp } from "@ng-icons/lucide";
 
 @Component({
   selector: "home-page",
@@ -17,10 +19,16 @@ import { HeaderFullComponent } from "../../components/header-full/header-full.co
     GridLayout,
     RouterLink,
     ScrollComponent,
+    NgIcon,
   ],
+  viewProviders: [provideIcons({ lucideArrowDown, lucideArrowUp })],
   templateUrl: "./home.page.html",
   host: { style: "display: contents;" },
 })
 export class HomePage {
-  protected readonly title = signal("mddweb");
+  protected readonly sortBy = signal<"asc" | "desc">("asc");
+
+  protected toggleSortBy() {
+    this.sortBy.update((value) => (value === "asc" ? "desc" : "asc"));
+  }
 }

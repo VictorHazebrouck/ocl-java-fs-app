@@ -6,7 +6,9 @@
     <button-component variant="transparent" routerLink="/profile"> Profile </button-component>
   </div>
 
-  <button class="ml-auto cursor-pointer md:hidden" (click)="openMobileSidePanel()">...</button>
+  <button class="ml-auto cursor-pointer md:hidden" (click)="openMobileSidePanel()">
+    <ng-icon name="lucideMenu" />
+  </button>
 
   @if (isMobileSidePanelVisible()) {
     <modal-component

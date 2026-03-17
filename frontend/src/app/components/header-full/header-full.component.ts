@@ -3,10 +3,13 @@ import { RouterLink } from "@angular/router";
 import { HeaderComponent } from "../header/header.component";
 import { ButtonComponent } from "../ui/button/button.component";
 import { ModalComponent } from "../ui/modal/modal.component";
+import { NgIcon, provideIcons } from "@ng-icons/core";
+import { lucideMenu } from "@ng-icons/lucide";
 
 @Component({
   selector: "header-full-component",
-  imports: [RouterLink, HeaderComponent, ButtonComponent, ModalComponent],
+  imports: [RouterLink, HeaderComponent, ButtonComponent, ModalComponent, NgIcon],
+  viewProviders: [provideIcons({ lucideMenu })],
   templateUrl: "./header-full.component.html",
   host: { style: "display: contents;" },
 })

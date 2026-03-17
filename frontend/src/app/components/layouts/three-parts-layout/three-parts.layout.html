@@ -1,13 +1,13 @@
 <div class="flex w-full flex-col md:flex-row" [ngClass]="[class()]">
-  <div class="w-fit md:w-1/3">
+  <div class="w-full md:w-1/3">
     <ng-content select="[layout-left]" />
   </div>
 
-  <div class="w-fit md:w-1/3">
+  <div class="w-full md:w-1/3">
     <ng-content select="[layout-middle]" />
   </div>
 
-  <div class="w-fit md:w-1/3">
+  <div class="w-full md:w-1/3">
     <ng-content select="[layout-right]" />
   </div>
 </div>

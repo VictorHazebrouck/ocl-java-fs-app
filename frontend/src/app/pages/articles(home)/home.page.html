@@ -9,7 +9,14 @@
       </ng-container>
 
       <ng-container layout-right>
-        <button-component variant="transparent" class="ml-auto"> Trier par </button-component>
+        <button-component variant="transparent" class="ml-auto" (click)="toggleSortBy()">
+          <span>Trier par</span>
+          @if (sortBy() === "asc") {
+          <ng-icon name="lucideArrowUp" />
+          } @else {
+          <ng-icon name="lucideArrowDown" />
+          }
+        </button-component>
       </ng-container>
     </three-parts-layout>
 
