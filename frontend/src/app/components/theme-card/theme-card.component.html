@@ -1,7 +1,4 @@
-<div
-  class="flex aspect-video cursor-pointer flex-col gap-4 rounded-md bg-gray-100 p-4"
-  [ngClass]="[class()]"
->
+<div class="flex aspect-video flex-col gap-4 rounded-md bg-gray-100 p-4" [ngClass]="[class()]">
   <h3 class="text-left font-semibold">{{ title() }}</h3>
   <p class="text-left">{{ description() }}</p>
   @if (isSubscribed()) {

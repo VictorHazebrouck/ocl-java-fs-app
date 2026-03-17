@@ -1,5 +1,41 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
   <header-full-component />
+  <scroll-component class="h-full">
+    <div class="flex flex-col gap-8 p-8">
+      <three-parts-layout>
+        <ng-container layout-middle>
+          <div class="flex flex-col gap-8">
+            <h1 class="text-2xl font-semibold">Profil Utilisateur</h1>
 
-  <p>Hello from profile !</p>
+            <div class="flex flex-col gap-4">
+              <text-input-component placeholder="Username..." />
+              <text-input-component placeholder="Email..." />
+              <text-input-component placeholder="Password..." />
+            </div>
+
+            <button-component variant="primary" class="mx-auto w-fit">Sauvegarder</button-component>
+          </div>
+        </ng-container>
+      </three-parts-layout>
+
+      <hr />
+
+      <div class="flex flex-col gap-8">
+        <h1 class="mx-auto text-2xl font-semibold">Abonnements</h1>
+
+        <grid-layout>
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+          <theme-card-component />
+        </grid-layout>
+      </div>
+    </div>
+  </scroll-component>
 </div>
