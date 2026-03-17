@@ -1,6 +1,6 @@
 <div class="h-dvh w-dvw flex flex-col bg-white">
   <header-component />
-  <div class="h-full flex flex-col p-8 gap-6">
+  <div class="h-full w-full flex flex-col p-8 gap-6">
     <three-parts-layout class="items-center">
       <ng-container layout-left>
         <button-component variant="primary" routerLink="/article-create">
@@ -13,17 +13,19 @@
       </ng-container>
     </three-parts-layout>
 
-    <grid-layout class="h-full overflow-y-auto pb-3">
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-      <article-card-component />
-    </grid-layout>
+    <scroll-component class="h-full">
+      <grid-layout>
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+        <article-card-component />
+      </grid-layout>
+    </scroll-component>
   </div>
 </div>

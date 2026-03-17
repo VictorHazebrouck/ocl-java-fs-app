@@ -5,6 +5,7 @@ import { ButtonComponent } from "../../components/ui/button/button.component";
 import { ArticleCardComponent } from "../../components/article-card/article-card.component";
 import { GridLayout } from "../../components/layouts/grid-layout/grid.layout";
 import { RouterLink } from "@angular/router";
+import { ScrollComponent } from "../../components/ui/scroll/scroll.component";
 
 @Component({
   selector: "home-page",
@@ -15,6 +16,7 @@ import { RouterLink } from "@angular/router";
     ArticleCardComponent,
     GridLayout,
     RouterLink,
+    ScrollComponent,
   ],
   templateUrl: "./home.page.html",
   host: { style: "display: contents;" },

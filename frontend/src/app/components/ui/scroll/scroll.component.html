@@ -1,0 +1,11 @@
+<!--
+  Scroll is a pain in the ass, if nested too much, a scroll container seems
+  to fallback to being the size of the window, doing the following seems to
+  "reset" this behaviour and force the scroll container to behave as it should
+-->
+
+<div class="flex relative overflow-y-auto" [ngClass]="[class()]">
+  <div class="flex flex-col absolute w-full">
+    <ng-content />
+  </div>
+</div>
