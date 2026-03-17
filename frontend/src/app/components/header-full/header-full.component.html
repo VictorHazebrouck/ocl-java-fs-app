@@ -6,9 +6,19 @@
     <button-component variant="transparent" routerLink="/profile"> Profile </button-component>
   </div>
 
-  <button class="ml-auto cursor-pointer">...</button>
+  <button class="ml-auto cursor-pointer" (click)="openMobileSidePanel()">...</button>
 
-  <div class="absolute top-0 left-0 z-50 flex h-dvh w-dvw bg-gray-500 opacity-30">
-    <div class="h-full w-1/2"></div>
-  </div>
+  @if (isMobileSidePanelVisible()) {
+    <modal-component
+      (onClose)="closeMobileSidePanel()"
+      innerClass="ml-auto flex h-full w-2/3 flex-col border-l bg-white"
+    >
+      <button-component variant="transparent" routerLink="/sign"> Se déconnecter </button-component>
+      <button-component variant="transparent" routerLink="/"> Articles </button-component>
+      <button-component variant="transparent" routerLink="/themes"> Thèmes </button-component>
+      <button-component variant="transparent" routerLink="/profile" class="mt-auto">
+        Profile
+      </button-component>
+    </modal-component>
+  }
 </header-component>

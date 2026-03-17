@@ -1,0 +1,9 @@
+<div
+  class="absolute top-0 left-0 z-50 flex h-dvh w-dvw bg-gray-400/70"
+  [ngClass]="outerClass"
+  (click)="onBackgroundClick()"
+>
+  <div [ngClass]="innerClass()" (click)="$event.stopPropagation()">
+    <ng-content />
+  </div>
+</div>
