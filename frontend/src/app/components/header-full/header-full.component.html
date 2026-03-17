@@ -1,7 +1,11 @@
 <header-component>
   <div class="ml-auto hidden items-center md:visible md:flex">
-    <button-component variant="transparent" routerLink="/sign"> Se déconnecter </button-component>
-    <button-component variant="transparent" routerLink="/"> Articles </button-component>
+    <button-component variant="transparent" class="text-red-500" routerLink="/sign">
+      Se déconnecter
+    </button-component>
+    <button-component variant="transparent" class="text-violet-500" routerLink="/">
+      Articles
+    </button-component>
     <button-component variant="transparent" routerLink="/themes"> Thèmes </button-component>
     <button-component variant="transparent" routerLink="/profile">
       <div class="flex items-center justify-center rounded-full bg-gray-300 p-2">
@@ -19,8 +23,12 @@
       (onClose)="closeMobileSidePanel()"
       innerClass="ml-auto flex h-full w-2/3 flex-col border-l bg-white items-end p-4"
     >
-      <button-component variant="transparent" routerLink="/sign"> Se déconnecter </button-component>
-      <button-component variant="transparent" routerLink="/"> Articles </button-component>
+      <button-component variant="transparent" class="text-red-500" routerLink="/sign">
+        Se déconnecter
+      </button-component>
+      <button-component variant="transparent" class="text-violet-500" routerLink="/">
+        Articles
+      </button-component>
       <button-component variant="transparent" routerLink="/themes"> Thèmes </button-component>
       <button-component variant="transparent" routerLink="/profile" class="mt-auto ml-auto">
         <div class="flex items-center justify-center rounded-full bg-gray-300 p-2">
