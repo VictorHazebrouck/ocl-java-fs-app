@@ -1,0 +1,12 @@
+<div
+  class="cursor-pointer gap-2 px-3 py-2 rounded-md bg-gray-100 flex flex-col aspect-video"
+  [ngClass]="[class()]"
+>
+  <h3 class="font-semibold text-left">{{ title() }}</h3>
+  <p class="text-left">{{ description() }}</p>
+  @if (isSubscribed()) {
+    <button-component> Déjà abonné </button-component>
+  } @else {
+    <button-component> S'abonner </button-component>
+  }
+</div>

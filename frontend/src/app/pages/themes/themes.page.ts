@@ -5,20 +5,16 @@ import { ButtonComponent } from "../../components/ui/button/button.component";
 import { TextInputComponent } from "../../components/ui/text-input/text-input.component";
 import { RouterLink } from "@angular/router";
 import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
+import { ThemeCardComponent } from "../../components/theme-card/theme-card.component";
+import { GridLayout } from "../../components/layouts/grid-layout/grid.layout";
+import { ScrollComponent } from "../../components/ui/scroll/scroll.component";
 
 @Component({
-  selector: "article-create-page",
-  imports: [
-    HeaderComponent,
-    ThreePartsLayout,
-    ButtonComponent,
-    TextInputComponent,
-    RouterLink,
-    TextareaComponent,
-  ],
-  templateUrl: "./article-create.page.html",
+  selector: "themes-page",
+  imports: [HeaderComponent, ThemeCardComponent, GridLayout, ScrollComponent],
+  templateUrl: "./themes.page.html",
   host: { style: "display: contents;" },
 })
-export class ArticleCreatePage {
+export class ThemesPage {
   protected readonly title = signal("mddweb");
 }

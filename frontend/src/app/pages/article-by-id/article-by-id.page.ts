@@ -7,7 +7,7 @@ import { RouterLink } from "@angular/router";
 import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
 
 @Component({
-  selector: "article-create-page",
+  selector: "article-by-id-page",
   imports: [
     HeaderComponent,
     ThreePartsLayout,
@@ -16,9 +16,9 @@ import { TextareaComponent } from "../../components/ui/textarea/textarea.compone
     RouterLink,
     TextareaComponent,
   ],
-  templateUrl: "./article-create.page.html",
+  templateUrl: "./article-by-id.page.html",
   host: { style: "display: contents;" },
 })
-export class ArticleCreatePage {
+export class ArticleByIdPage {
   protected readonly title = signal("mddweb");
 }

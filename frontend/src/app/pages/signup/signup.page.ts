@@ -1,8 +1,8 @@
 import { Component, signal } from "@angular/core";
-import { HeaderComponent } from "../../../components/header/header.component";
-import { ThreePartsLayout } from "../../../components/layouts/three-parts-layout/three-parts.layout";
-import { ButtonComponent } from "../../../components/ui/button/button.component";
-import { TextInputWithLabelComponent } from "../../../components/ui/text-input-with-label/text-input-with-label.component";
+import { HeaderComponent } from "../../components/header/header.component";
+import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
+import { ButtonComponent } from "../../components/ui/button/button.component";
+import { TextInputWithLabelComponent } from "../../components/ui/text-input-with-label/text-input-with-label.component";
 import { RouterLink } from "@angular/router";
 
 @Component({
