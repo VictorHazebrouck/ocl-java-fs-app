@@ -6,7 +6,7 @@
     <button-component variant="transparent" routerLink="/profile"> Profile </button-component>
   </div>
 
-  <button class="ml-auto cursor-pointer" (click)="openMobileSidePanel()">...</button>
+  <button class="ml-auto cursor-pointer md:hidden" (click)="openMobileSidePanel()">...</button>
 
   @if (isMobileSidePanelVisible()) {
     <modal-component
