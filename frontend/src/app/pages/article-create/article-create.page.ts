@@ -1,15 +1,15 @@
 import { Component, signal } from "@angular/core";
-import { HeaderComponent } from "../../components/header/header.component";
+import { RouterLink } from "@angular/router";
+import { HeaderFullComponent } from "../../components/header-full/header-full.component";
 import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
 import { ButtonComponent } from "../../components/ui/button/button.component";
 import { TextInputComponent } from "../../components/ui/text-input/text-input.component";
-import { RouterLink } from "@angular/router";
 import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
 
 @Component({
   selector: "article-create-page",
   imports: [
-    HeaderComponent,
+    HeaderFullComponent,
     ThreePartsLayout,
     ButtonComponent,
     TextInputComponent,

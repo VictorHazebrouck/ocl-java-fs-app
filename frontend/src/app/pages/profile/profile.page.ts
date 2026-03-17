@@ -2,11 +2,11 @@ import { Component, signal } from "@angular/core";
 import { HeaderFullComponent } from "../../components/header-full/header-full.component";
 
 @Component({
-  selector: "article-by-id-page",
+  selector: "profile-page",
   imports: [HeaderFullComponent],
-  templateUrl: "./article-by-id.page.html",
-  host: { style: "display: contents;" },
+  templateUrl: "./profile.page.html",
+  styleUrls: [],
 })
-export class ArticleByIdPage {
+export class ProfilePage {
   protected readonly title = signal("mddweb");
 }

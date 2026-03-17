@@ -4,8 +4,8 @@
   "reset" this behaviour and force the scroll container to behave as it should
 -->
 
-<div class="flex relative overflow-y-auto" [ngClass]="[class()]">
-  <div class="flex flex-col absolute w-full">
+<div class="relative flex overflow-y-auto" [ngClass]="[class()]">
+  <div class="absolute flex w-full flex-col">
     <ng-content />
   </div>
 </div>

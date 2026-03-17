@@ -2,6 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
 export type Variant = "outline" | "primary" | "transparent";
+export type Color = "primary" | "danger" | "black";
 
 @Component({
   selector: "button-component",

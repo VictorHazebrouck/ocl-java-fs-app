@@ -1,8 +1,9 @@
 import { Component, signal } from "@angular/core";
+import { HeaderFullComponent } from "../../components/header-full/header-full.component";
 
 @Component({
   selector: "not-found-page",
-  standalone: true,
+  imports: [HeaderFullComponent],
   templateUrl: "./not-found.page.html",
   styleUrls: [],
 })
