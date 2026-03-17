@@ -6,8 +6,10 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -22,29 +24,33 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @EqualsAndHashCode(of = { "id" })
 @Entity
-@Table(name = "users")
+@Table(name = "articles")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email
-    @NotNull
-    @Size(max = 50)
-    @Column(nullable = false, unique = true)
-    private String email;
-
-    @NotNull
-    @Size(max = 20)
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @NotNull
-    @Size(max = 120)
+    @NotBlank
+    @Size(max = 100)
     @Column(nullable = false)
-    private String password;
+    private String title;
+
+    @NotBlank
+    @Size(max = 10_000)
+    @Column(nullable = false)
+    private String content;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false)
+    private User author;
+
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
+    private Topic topic;
 
     @CreatedDate
     @Column(
