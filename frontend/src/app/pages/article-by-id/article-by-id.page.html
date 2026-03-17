@@ -1,4 +1,52 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
   <header-full-component />
-  <div>Hello from article by id</div>
+  <div class="flex h-full flex-col gap-8 p-8 md:relative md:pl-20">
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-4">
+        <button
+          class="top-8 left-4 cursor-pointer md:absolute"
+          variant="transparent"
+          routerLink="/"
+        >
+          <ng-icon name="lucideArrowLeft" size="36" />
+        </button>
+
+        <h3 class="text-left font-semibold">{{ title() }}</h3>
+      </div>
+
+      <div class="flex flex-wrap gap-12">
+        <p class="text-left">{{ date() }}</p>
+        <p class="text-left">{{ author() }}</p>
+        <p class="text-left">{{ topic() }}</p>
+      </div>
+
+      <p class="text-left">{{ content() }}</p>
+    </div>
+
+    <hr />
+
+    <scroll-component class="h-full">
+      <div class="flex flex-col gap-6">
+        <p class="text-xl">Commentaires</p>
+
+        <div class="flex w-full flex-col gap-4">
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+          <comment-card-component class="w-full" />
+        </div>
+      </div>
+    </scroll-component>
+
+    <div class="flex h-40 items-center gap-4">
+      <textarea-component placeholder="Écrivez ici votre commentaire" />
+
+      <button class="cursor-pointer text-violet-500">
+        <ng-icon name="lucideSend" size="36" />
+      </button>
+    </div>
+  </div>
 </div>
