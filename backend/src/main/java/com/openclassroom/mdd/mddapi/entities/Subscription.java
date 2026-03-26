@@ -1,15 +1,17 @@
-package com.openclassroom.mddapi.models;
+package com.openclassroom.mdd.mddapi.entities;
 
+import com.openclassroom.mdd.mddauth.entities.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,29 +24,28 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @EqualsAndHashCode(of = { "id" })
 @Entity
-@Table(name = "users")
+@Table(
+    name = "subscriptions",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = { "user_id", "topic_id" }),
+    }
+)
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class Subscription {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email
     @NotNull
-    @Size(max = 50)
-    @Column(nullable = false, unique = true)
-    private String email;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @NotNull
-    @Size(max = 20)
-    @Column(nullable = false, unique = true)
-    private String username;
-
-    @NotNull
-    @Size(max = 120)
-    @Column(nullable = false)
-    private String password;
+    @ManyToOne
+    @JoinColumn(name = "topic_id", nullable = false)
+    private Topic topic;
 
     @CreatedDate
     @Column(

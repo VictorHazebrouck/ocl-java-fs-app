@@ -1,5 +1,6 @@
-package com.openclassroom.mddapi.models;
+package com.openclassroom.mdd.mddapi.entities;
 
+import com.openclassroom.mdd.mddauth.entities.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

@@ -1,8 +1,11 @@
-package com.openclassroom.mddapi.models;
+package com.openclassroom.mdd.mddauth.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,8 +14,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,16 +24,21 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @Setter
-@EqualsAndHashCode(of = { "id" })
 @Entity
 @Table(
-    name = "subscriptions",
+    name = "accounts",
     uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "user_id", "topic_id" }),
+        @UniqueConstraint(columnNames = { "provider_id", "user_id" }),
     }
 )
 @EntityListeners(AuditingEntityListener.class)
-public class Subscription {
+public class Account {
+
+    public enum ProviderId {
+        PASSWORD,
+        GOOGLE,
+        GITHUB,
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,13 +46,25 @@ public class Subscription {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false, updatable = false)
     private User user;
 
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "topic_id", nullable = false)
-    private Topic topic;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, updatable = false)
+    private ProviderId providerId = ProviderId.PASSWORD;
+
+    @Nullable
+    @Size(max = 120)
+    @Column(nullable = true)
+    // only if providerId == ProviderId.PASSWORD
+    private String password;
+
+    @Nullable
+    @Size(max = 120)
+    @Column(nullable = true)
+    // only if providerId != ProviderId.PASSWORD
+    private String socialLoginUserId;
 
     @CreatedDate
     @Column(
@@ -60,4 +80,13 @@ public class Subscription {
         columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
     )
     private LocalDateTime updatedAt;
+
+    // @AssertTrue(message = "Invalid account configuration")
+    // public boolean isValid() {
+    //     return switch (providerId) {
+    //         case PASSWORD -> password != null && !password.isBlank();
+    //         case GOOGLE, GITHUB -> socialLoginUserId != null &&
+    //         !socialLoginUserId.isBlank();
+    //     };
+    // }
 }

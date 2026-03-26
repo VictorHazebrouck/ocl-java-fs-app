@@ -5,9 +5,9 @@ import { Id } from "./utils";
 export interface Article {
   id: Id;
   title: string;
+  content: string;
   author: Id;
   topic: Id;
-  content: string;
   createdAt: string;
   updatedAt: string;
 }
