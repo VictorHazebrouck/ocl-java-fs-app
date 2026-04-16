@@ -9,7 +9,7 @@ import { ArticleCreation, ArticleWithAuthorAndTopic } from "../models/article.mo
 export class ArticleService {
   private http = inject(HttpClient);
 
-  public getArticle(): Observable<ArticleWithAuthorAndTopic[]> {
+  public getArticles(): Observable<ArticleWithAuthorAndTopic[]> {
     return this.http.get<ArticleWithAuthorAndTopic[]>("/api/article");
   }
 

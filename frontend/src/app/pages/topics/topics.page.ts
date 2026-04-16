@@ -1,10 +1,11 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { ThemeCardComponent } from "@app/components/theme-card/theme-card.component";
 import { GridLayout } from "@app/components/layouts/grid-layout/grid.layout";
 import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { TopicService } from "@app/services/topic.service";
 import { toSignal } from "@angular/core/rxjs-interop";
+import { TopicWithAmISubscribed } from "@app/models/topic.model";
 
 @Component({
   selector: "app-topics-page",
@@ -15,5 +16,35 @@ import { toSignal } from "@angular/core/rxjs-interop";
 export class ThemesPage {
   private readonly topicService = inject(TopicService);
 
-  protected topics = toSignal(this.topicService.getTopics(), { initialValue: [] });
+  protected topics = signal<TopicWithAmISubscribed[]>([]);
+
+  constructor() {
+    this.refreshTopics();
+  }
+
+  protected subscribeToTopic(id: string) {
+    console.log("kakaka");
+
+    this.topicService.createTopicSubscription(id).subscribe({
+      next: () => this.refreshTopics(),
+      error: console.error,
+    });
+
+    // invalidare topicService.refreshTopics
+  }
+
+  protected unsubscribeFromTopic(id: string) {
+    console.log("kakaka");
+
+    this.topicService.deleteTopicSubscription(id).subscribe({
+      next: () => this.refreshTopics(),
+      error: console.error,
+    });
+  }
+
+  private refreshTopics() {
+    this.topicService.getTopicsWithSubscriptionInfo().subscribe({
+      next: (topics) => this.topics.set(topics),
+    });
+  }
 }

@@ -7,9 +7,12 @@ import com.openclassroom.mdd.mddapi.mappers.ArticleMapper;
 import com.openclassroom.mdd.mddapi.services.ArticleService;
 import com.openclassroom.mdd.mddauth.entities.User;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,8 +44,19 @@ public class ArticleController {
         return ResponseEntity.ok(ArticleMapper.INSTANCE.toDto(newArticle));
     }
 
-    // @GetMapping("/api/article")
-    // public ResponseEntity<ArticleDto> getArticles() {
-    //     return ResponseEntity.ok(articleService.getArticles());
-    // }
+    @GetMapping("/api/article")
+    public ResponseEntity<List<ArticleDto>> getArticles() {
+        return ResponseEntity.ok(
+            ArticleMapper.INSTANCE.toDto(articleService.getArticles())
+        );
+    }
+
+    @GetMapping("/api/article/{articleId}")
+    public ResponseEntity<ArticleDto> subscribeToTopic(
+        @PathVariable Long articleId
+    ) {
+        Article article = articleService.getArticleById(articleId);
+
+        return ResponseEntity.ok(ArticleMapper.INSTANCE.toDto(article));
+    }
 }

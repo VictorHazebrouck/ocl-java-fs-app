@@ -1,6 +1,8 @@
 import { NgClass } from "@angular/common";
-import { Component, input } from "@angular/core";
+import { Component, inject, input, output } from "@angular/core";
 import { ButtonComponent } from "../ui/button/button.component";
+import { TopicWithAmISubscribed } from "@app/models/topic.model";
+import { TopicService } from "@app/services/topic.service";
 
 @Component({
   selector: "app-theme-card-component",
@@ -10,9 +12,11 @@ import { ButtonComponent } from "../ui/button/button.component";
 })
 export class ThemeCardComponent {
   class = input("");
-  title = input("Title");
-  description = input(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  );
-  isSubscribed = input(false);
+  topic = input<Partial<TopicWithAmISubscribed>>({
+    name: "Tiyle",
+    description: "JAJJAJAJ",
+    amISubscribed: true,
+  });
+  onClickSubscribe = output<void>();
+  onClickUnubscribe = output<void>();
 }

@@ -26,16 +26,9 @@
       </app-three-parts-layout>
 
       <app-grid-layout>
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
-        <app-article-card-component routerLink="/article/1" />
+        @for (article of articles(); track article.id) {
+          <app-article-card-component [routerLink]="`/article/${article.id}`" [article]="article" />
+        }
       </app-grid-layout>
     </div>
   </app-scroll-component>

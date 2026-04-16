@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, computed, inject, signal } from "@angular/core";
 import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/three-parts.layout";
 import { ButtonComponent } from "@app/components/ui/button/button.component";
 import { ArticleCardComponent } from "@app/components/article-card/article-card.component";
@@ -8,6 +8,9 @@ import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowDown, lucideArrowUp } from "@ng-icons/lucide";
+import { ArticleService } from "@app/services/article.service";
+import { Article } from "@app/models/article.model";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "home-page",
@@ -26,7 +29,13 @@ import { lucideArrowDown, lucideArrowUp } from "@ng-icons/lucide";
   host: { style: "display: contents;" },
 })
 export class HomePage {
+  private readonly articleService = inject(ArticleService);
+
   protected readonly sortBy = signal<"asc" | "desc">("asc");
+  protected readonly articles = toSignal(this.articleService.getArticles());
+  // protected readonly articles = computed<Article[]>(() => [
+  // this.articleService.
+  // ]);
 
   protected toggleSortBy() {
     this.sortBy.update((value) => (value === "asc" ? "desc" : "asc"));

@@ -4,11 +4,11 @@
     <div class="flex flex-col gap-6 p-8">
       <app-grid-layout>
         @for (topic of topics(); track topic.id) {
-        <app-theme-card-component
-          [title]="topic.name"
-          [description]="topic.description"
-          [isSubscribed]="false"
-        />
+          <app-theme-card-component
+            [topic]="topic"
+            (onClickSubscribe)="subscribeToTopic(topic.id!)"
+            (onClickUnubscribe)="unsubscribeFromTopic(topic.id!)"
+          />
         }
       </app-grid-layout>
     </div>

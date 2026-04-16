@@ -12,7 +12,11 @@
         <h1 class="text-2xl">Créer un nouvel article</h1>
 
         <div class="flex h-[50vh] w-full flex-col gap-4">
-          <app-text-input-component placeholder="Sélectionner un theme" [(value)]="topicId" />
+          <app-dropdown-component
+            placeholder="Sélectionner un theme"
+            [(value)]="topicNameSelected"
+            [options]="topics().map(e => e.name)"
+          />
           <app-text-input-component placeholder="Titre de l'article" [(value)]="title" />
           <app-textarea-component
             class="h-full"

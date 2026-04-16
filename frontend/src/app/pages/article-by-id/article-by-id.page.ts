@@ -1,4 +1,4 @@
-import { Component, input } from "@angular/core";
+import { Component, inject, input } from "@angular/core";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft, lucideSend } from "@ng-icons/lucide";
 import { CommentCardComponent } from "@app/components/comment-card/comment-card.component";
@@ -6,6 +6,9 @@ import { HeaderFullComponent } from "@app/components/header-full/header-full.com
 import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { TextareaComponent } from "@app/components/ui/textarea/textarea.component";
 import { RouterLink } from "@angular/router";
+import { ArticleService } from "@app/services/article.service";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: "app-article-by-id-page",
@@ -13,6 +16,7 @@ import { RouterLink } from "@angular/router";
     HeaderFullComponent,
     ScrollComponent,
     NgIcon,
+    DatePipe,
     CommentCardComponent,
     TextareaComponent,
     RouterLink,
@@ -22,12 +26,7 @@ import { RouterLink } from "@angular/router";
   host: { style: "display: contents;" },
 })
 export class ArticleByIdPage {
-  class = input("");
-  title = input("Title");
-  date = input("Date");
-  author = input("Author");
-  topic = input("Topic");
-  content = input(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  );
+  private readonly articleService = inject(ArticleService);
+
+  article = toSignal(this.articleService.getArticleById("1"));
 }

@@ -12,16 +12,16 @@
             <ng-icon name="lucideArrowLeft" size="36" />
           </button>
 
-          <h3 class="text-left font-semibold">{{ title() }}</h3>
+          <h3 class="text-left font-semibold">{{ article()?.title }}</h3>
         </div>
 
         <div class="flex flex-wrap gap-12">
-          <p class="text-left">{{ date() }}</p>
-          <p class="text-left">{{ author() }}</p>
-          <p class="text-left">{{ topic() }}</p>
+          <p class="text-left">{{ article()?.createdAt | date: "yyyy-MM-dd" }}</p>
+          <p class="text-left">{{ article()?.author?.username }}</p>
+          <p class="text-left">{{ article()?.topic?.name }}</p>
         </div>
 
-        <p class="text-left">{{ content() }}</p>
+        <p class="text-left">{{ article()?.content }}</p>
       </div>
 
       <hr />

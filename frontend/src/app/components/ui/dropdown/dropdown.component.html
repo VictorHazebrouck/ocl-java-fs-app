@@ -1,0 +1,16 @@
+<select
+  #select
+  class="w-full cursor-pointer rounded-md border-2 border-violet-500 bg-white px-4 py-2"
+  [ngClass]="[class()]"
+  [name]="name()"
+  [value]="value()"
+  (change)="value.set(select.value)"
+>
+  <option value="" disabled selected>Select an option</option>
+
+  @for (option of options(); track option) {
+    <option [value]="option">
+      {{ option }}
+    </option>
+  }
+</select>

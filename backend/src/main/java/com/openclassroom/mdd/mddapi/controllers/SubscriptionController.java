@@ -1,12 +1,7 @@
 package com.openclassroom.mdd.mddapi.controllers;
 
-import com.openclassroom.mdd.mddapi.dtos.ArticleCreateReq;
-import com.openclassroom.mdd.mddapi.entities.Article;
-import com.openclassroom.mdd.mddapi.mappers.ArticleMapper;
-import com.openclassroom.mdd.mddapi.services.ArticleService;
 import com.openclassroom.mdd.mddapi.services.SubsciptionService;
 import com.openclassroom.mdd.mddauth.entities.User;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
