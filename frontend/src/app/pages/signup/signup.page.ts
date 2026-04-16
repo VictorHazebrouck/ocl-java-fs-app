@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component, effect, inject, model, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
@@ -6,6 +6,8 @@ import { HeaderComponent } from "../../components/header/header.component";
 import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
 import { ButtonComponent } from "../../components/ui/button/button.component";
 import { TextInputWithLabelComponent } from "../../components/ui/text-input-with-label/text-input-with-label.component";
+import { AuthService } from "../../services/auth.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "signup-page",
@@ -23,4 +25,29 @@ import { TextInputWithLabelComponent } from "../../components/ui/text-input-with
 })
 export class SignupPage {
   protected readonly title = signal("mddweb");
+  authService = inject(AuthService);
+
+  username = model("");
+  email = model("");
+  password = model("");
+
+  constructor() {
+    effect(() => {
+      console.log(this.username());
+      console.log(this.email());
+      console.log(this.password());
+    });
+  }
+
+  async onClick() {
+    const res = await firstValueFrom(
+      this.authService.signUp({
+        username: this.username(),
+        email: this.email(),
+        password: this.password(),
+      }),
+    );
+
+    console.log("Logged in!", res);
+  }
 }

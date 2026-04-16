@@ -12,12 +12,12 @@
         <h1 class="text-2xl">S'inscrire</h1>
 
         <div class="flex w-full flex-col gap-4 md:px-12">
-          <text-input-with-label-component label="Nom d'utilisateur" />
-          <text-input-with-label-component label="Addresse e-mail" />
-          <text-input-with-label-component label="Mot de passe" />
+          <text-input-with-label-component label="Nom d'utilisateur" [(value)]="username" />
+          <text-input-with-label-component label="Addresse e-mail" [(value)]="email" />
+          <text-input-with-label-component label="Mot de passe" [(value)]="password" />
         </div>
 
-        <button-component variant="primary">S'inscrire</button-component>
+        <button-component variant="primary" (click)="onClick()">S'inscrire</button-component>
       </div>
     </ng-container>
 

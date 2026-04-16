@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common";
-import { Component, input } from "@angular/core";
+import { Component, input, model } from "@angular/core";
 
 @Component({
   selector: "text-input-with-label-component",
@@ -11,4 +11,5 @@ export class TextInputWithLabelComponent {
   class = input("");
   label = input("input label");
   placeholder = input("");
+  value = model("");
 }

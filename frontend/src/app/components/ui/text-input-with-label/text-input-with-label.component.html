@@ -4,5 +4,7 @@
     class="w-full cursor-text rounded-md border px-4 py-2"
     [name]="label()"
     [placeholder]="placeholder()"
+    [value]="value()"
+    (input)="value.set($any($event.target).value)"
   />
 </div>
