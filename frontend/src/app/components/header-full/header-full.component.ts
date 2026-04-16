@@ -1,5 +1,5 @@
 import { Component, inject, signal } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { HeaderComponent } from "../header/header.component";
 import { ButtonComponent } from "../ui/button/button.component";
 import { ModalComponent } from "../ui/modal/modal.component";
@@ -15,11 +15,14 @@ import { AuthService } from "@app/services/auth.service";
   host: { style: "display: contents;" },
 })
 export class HeaderFullComponent {
-  protected readonly authService = inject(AuthService);
-  protected readonly isMobileSidePanelVisible = signal(false);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
+  protected isMobileSidePanelVisible = signal(false);
 
   protected signOut() {
     this.authService.signOut();
+    this.router.navigate(["/sign"]);
   }
 
   protected closeMobileSidePanel() {

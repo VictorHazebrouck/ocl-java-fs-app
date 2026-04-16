@@ -3,4 +3,6 @@
   [ngClass]="[class()]"
   [name]="name()"
   [placeholder]="placeholder()"
+  [value]="value()"
+  (input)="value.set($any($event.target).value)"
 ></textarea>

@@ -25,4 +25,6 @@ export interface ArticleWithAuthorAndTopic extends Omit<Article, "author" | "top
   topic: Topic;
 }
 
-export interface ArticleCreation extends Pick<Article, "title" | "topic" | "content"> {}
+export interface ArticleCreation extends Pick<Article, "title" | "content"> {
+  topicId: string;
+}

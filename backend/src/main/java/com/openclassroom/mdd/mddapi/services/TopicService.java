@@ -22,4 +22,8 @@ public class TopicService {
         topic.setDescription(desc);
         return topicRepository.save(topic);
     }
+
+    public Topic getTopicById(Long id) {
+        return topicRepository.getReferenceById(id);
+    }
 }

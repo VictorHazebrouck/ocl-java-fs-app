@@ -12,12 +12,18 @@
         <h1 class="text-2xl">Créer un nouvel article</h1>
 
         <div class="flex h-[50vh] w-full flex-col gap-4">
-          <app-text-input-component placeholder="Sélectionner un theme" />
-          <app-text-input-component placeholder="Titre de l'article" />
-          <app-textarea-component class="h-full" placeholder="Contenu de l'article" />
+          <app-text-input-component placeholder="Sélectionner un theme" [(value)]="topicId" />
+          <app-text-input-component placeholder="Titre de l'article" [(value)]="title" />
+          <app-textarea-component
+            class="h-full"
+            placeholder="Contenu de l'article"
+            [(value)]="content"
+          />
         </div>
 
-        <app-button-component variant="primary">Créer</app-button-component>
+        <app-button-component variant="primary" (click)="createArticle()">
+          Créer
+        </app-button-component>
       </div>
     </ng-container>
   </app-three-parts-layout>

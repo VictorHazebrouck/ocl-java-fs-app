@@ -1,5 +1,5 @@
 import { Component, inject, model } from "@angular/core";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
 import { HeaderComponent } from "@app/components/header/header.component";
@@ -24,16 +24,22 @@ import { AuthService } from "@app/services/auth.service";
 })
 export class SignupPage {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   username = model("");
   email = model("");
   password = model("");
 
   async onClick() {
-    this.authService.signUp({
-      username: this.username(),
-      email: this.email(),
-      password: this.password(),
-    });
+    this.authService
+      .signUp({
+        username: this.username(),
+        email: this.email(),
+        password: this.password(),
+      })
+      .subscribe({
+        next: () => this.router.navigate(["/"]),
+        error: console.error,
+      });
   }
 }

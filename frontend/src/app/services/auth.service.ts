@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   public signOut(): void {
-    return this.clearTokens();
+    this.clearTokens();
   }
 
   public isSignedIn(): boolean {
@@ -36,7 +36,7 @@ export class AuthService {
   public refresh(): Observable<AuthSession> {
     return this.http
       .post<AuthSession>("/auth/refresh", { refreshToken: this.getRefreshToken() })
-      .pipe(tap(this.storeSession));
+      .pipe(tap((session) => this.storeSession(session)));
   }
 
   public getProfile(): Observable<AuthSession> {

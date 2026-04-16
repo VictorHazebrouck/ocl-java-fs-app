@@ -14,18 +14,22 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final SubsciptionService subsciptionService;
+    private final TopicService topicService;
 
     public Article createArticle(
         String title,
         String content,
-        Topic topic,
+        Long topicId,
         User user
     ) {
+        Topic topic = topicService.getTopicById(topicId);
+
         Article article = new Article();
         article.setTitle(title);
         article.setContent(content);
         article.setTopic(topic);
         article.setAuthor(user);
+
         return articleRepository.save(article);
     }
 

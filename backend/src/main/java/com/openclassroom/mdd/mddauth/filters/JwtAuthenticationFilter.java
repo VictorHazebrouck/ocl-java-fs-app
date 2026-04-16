@@ -28,9 +28,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         HttpServletResponse res,
         FilterChain filterChain
     ) throws ServletException, IOException {
+        System.out.println("New doFilterInternal request:");
+        System.out.println(req.getHeader("referer"));
+
         String authHeader = req.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("ERROR: no Bearer in headers");
             filterChain.doFilter(req, res);
             return;
         }
