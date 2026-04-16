@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { HeaderFullComponent } from "../../components/header-full/header-full.component";
+import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 
 @Component({
   selector: "app-not-found-page",

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
-import { AuthSession } from "../models/auth-session";
+import { AuthSession } from "../models/auth-session.model";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +15,7 @@ export class AuthService {
     password: string;
   }): Observable<AuthSession> {
     return this.http
-      .post<AuthSession>("/api/auth/signup", input)
+      .post<AuthSession>("/auth/signup", input)
       .pipe(tap((session) => this.storeSession(session)));
   }
 
@@ -33,16 +33,10 @@ export class AuthService {
     return !!this.getAccessToken();
   }
 
-  public refresh(): Observable<{ accessToken: string }> {
+  public refresh(): Observable<AuthSession> {
     return this.http
-      .post<{ accessToken: string }>("/api/auth/refresh", {
-        refreshToken: this.getRefreshToken(),
-      })
-      .pipe(
-        tap((res) => {
-          localStorage.setItem("accessToken", res.accessToken);
-        }),
-      );
+      .post<AuthSession>("/auth/refresh", { refreshToken: this.getRefreshToken() })
+      .pipe(tap(this.storeSession));
   }
 
   public getProfile(): Observable<AuthSession> {

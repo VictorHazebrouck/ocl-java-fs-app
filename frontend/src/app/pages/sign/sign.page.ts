@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { ButtonComponent } from "../../components/ui/button/button.component";
+import { ButtonComponent } from "@app/components/ui/button/button.component";
 
 @Component({
   selector: "app-sign-page",

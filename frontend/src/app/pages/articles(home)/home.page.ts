@@ -1,11 +1,11 @@
 import { Component, signal } from "@angular/core";
-import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
-import { ButtonComponent } from "../../components/ui/button/button.component";
-import { ArticleCardComponent } from "../../components/article-card/article-card.component";
-import { GridLayout } from "../../components/layouts/grid-layout/grid.layout";
+import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/three-parts.layout";
+import { ButtonComponent } from "@app/components/ui/button/button.component";
+import { ArticleCardComponent } from "@app/components/article-card/article-card.component";
+import { GridLayout } from "@app/components/layouts/grid-layout/grid.layout";
 import { RouterLink } from "@angular/router";
-import { ScrollComponent } from "../../components/ui/scroll/scroll.component";
-import { HeaderFullComponent } from "../../components/header-full/header-full.component";
+import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
+import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowDown, lucideArrowUp } from "@ng-icons/lucide";
 

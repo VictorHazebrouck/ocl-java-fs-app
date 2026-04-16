@@ -1,12 +1,12 @@
 import { Component, inject, model } from "@angular/core";
-import { HeaderComponent } from "../../components/header/header.component";
-import { TextInputWithLabelComponent } from "../../components/ui/text-input-with-label/text-input-with-label.component";
-import { ButtonComponent } from "../../components/ui/button/button.component";
-import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
+import { HeaderComponent } from "@app/components/header/header.component";
+import { TextInputWithLabelComponent } from "@app/components/ui/text-input-with-label/text-input-with-label.component";
+import { ButtonComponent } from "@app/components/ui/button/button.component";
+import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/three-parts.layout";
 import { RouterLink } from "@angular/router";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "@app/services/auth.service";
 
 @Component({
   selector: "app-signin-page",

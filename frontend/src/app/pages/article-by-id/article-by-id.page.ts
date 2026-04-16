@@ -1,10 +1,10 @@
 import { Component, input } from "@angular/core";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft, lucideSend } from "@ng-icons/lucide";
-import { CommentCardComponent } from "../../components/comment-card/comment-card.component";
-import { HeaderFullComponent } from "../../components/header-full/header-full.component";
-import { ScrollComponent } from "../../components/ui/scroll/scroll.component";
-import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
+import { CommentCardComponent } from "@app/components/comment-card/comment-card.component";
+import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
+import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
+import { TextareaComponent } from "@app/components/ui/textarea/textarea.component";
 import { RouterLink } from "@angular/router";
 
 @Component({

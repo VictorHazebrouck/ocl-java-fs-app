@@ -5,7 +5,7 @@ import { ButtonComponent } from "../ui/button/button.component";
 import { ModalComponent } from "../ui/modal/modal.component";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideMenu, lucideUser } from "@ng-icons/lucide";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "@app/services/auth.service";
 
 @Component({
   selector: "app-header-full-component",

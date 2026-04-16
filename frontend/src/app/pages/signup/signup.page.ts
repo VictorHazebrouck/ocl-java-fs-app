@@ -2,11 +2,11 @@ import { Component, inject, model } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
-import { HeaderComponent } from "../../components/header/header.component";
-import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
-import { ButtonComponent } from "../../components/ui/button/button.component";
-import { TextInputWithLabelComponent } from "../../components/ui/text-input-with-label/text-input-with-label.component";
-import { AuthService } from "../../services/auth.service";
+import { HeaderComponent } from "@app/components/header/header.component";
+import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/three-parts.layout";
+import { ButtonComponent } from "@app/components/ui/button/button.component";
+import { TextInputWithLabelComponent } from "@app/components/ui/text-input-with-label/text-input-with-label.component";
+import { AuthService } from "@app/services/auth.service";
 
 @Component({
   selector: "app-signup-page",

@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { HeaderFullComponent } from "../../components/header-full/header-full.component";
-import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
-import { ButtonComponent } from "../../components/ui/button/button.component";
-import { TextInputComponent } from "../../components/ui/text-input/text-input.component";
-import { TextareaComponent } from "../../components/ui/textarea/textarea.component";
+import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
+import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/three-parts.layout";
+import { ButtonComponent } from "@app/components/ui/button/button.component";
+import { TextInputComponent } from "@app/components/ui/text-input/text-input.component";
+import { TextareaComponent } from "@app/components/ui/textarea/textarea.component";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
 
