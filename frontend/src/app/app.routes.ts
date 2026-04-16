@@ -5,7 +5,7 @@ import { SigninPage } from "./pages/signin/signin.page";
 import { SignupPage } from "./pages/signup/signup.page";
 import { HomePage } from "./pages/articles(home)/home.page";
 import { ArticleCreatePage } from "./pages/article-create/article-create.page";
-import { ThemesPage } from "./pages/themes/themes.page";
+import { ThemesPage } from "./pages/topics/topics.page";
 import { ArticleByIdPage } from "./pages/article-by-id/article-by-id.page";
 import { ProfilePage } from "./pages/profile/profile.page";
 import { authGuard } from "./guards/auth.guard";

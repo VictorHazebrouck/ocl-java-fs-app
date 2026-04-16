@@ -1,0 +1,16 @@
+<div class="flex h-dvh w-dvw flex-col bg-white">
+  <app-header-full-component />
+  <app-scroll-component class="h-full">
+    <div class="flex flex-col gap-6 p-8">
+      <app-grid-layout>
+        @for (topic of topics(); track topic.id) {
+        <app-theme-card-component
+          [title]="topic.name"
+          [description]="topic.description"
+          [isSubscribed]="false"
+        />
+        }
+      </app-grid-layout>
+    </div>
+  </app-scroll-component>
+</div>
