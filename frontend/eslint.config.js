@@ -31,6 +31,9 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
+
+      // Completely disagree
+      "@angular-eslint/no-output-on-prefix": ["off"],
     },
   },
   {

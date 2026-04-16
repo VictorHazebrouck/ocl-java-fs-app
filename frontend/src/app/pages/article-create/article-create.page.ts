@@ -1,4 +1,4 @@
-import { Component, signal } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { HeaderFullComponent } from "../../components/header-full/header-full.component";
 import { ThreePartsLayout } from "../../components/layouts/three-parts-layout/three-parts.layout";
@@ -9,7 +9,7 @@ import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
 
 @Component({
-  selector: "article-create-page",
+  selector: "app-article-create-page",
   imports: [
     HeaderFullComponent,
     ThreePartsLayout,
@@ -23,6 +23,4 @@ import { lucideArrowLeft } from "@ng-icons/lucide";
   templateUrl: "./article-create.page.html",
   host: { style: "display: contents;" },
 })
-export class ArticleCreatePage {
-  protected readonly title = signal("mddweb");
-}
+export class ArticleCreatePage {}

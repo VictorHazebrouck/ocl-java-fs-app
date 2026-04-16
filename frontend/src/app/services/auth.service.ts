@@ -15,22 +15,22 @@ export class AuthService {
     password: string;
   }): Observable<AuthSession> {
     return this.http
-      .post<AuthSession>("http://localhost:8080/api/auth/signup", input, {
-        headers: {
-          "Access-Control-Allow-Origin": "true",
-        },
-      })
+      .post<AuthSession>("/api/auth/signup", input)
       .pipe(tap((session) => this.storeSession(session)));
   }
 
   public signIn(input: { usernameOrEmail: string; password: string }): Observable<AuthSession> {
     return this.http
-      .post<AuthSession>("/api/auth/signin", input, { withCredentials: true })
+      .post<AuthSession>("/auth/signin", input)
       .pipe(tap((session) => this.storeSession(session)));
   }
 
-  public signOut() {
-    return this.logout();
+  public signOut(): void {
+    return this.clearTokens();
+  }
+
+  public isSignedIn(): boolean {
+    return !!this.getAccessToken();
   }
 
   public refresh(): Observable<{ accessToken: string }> {
@@ -45,7 +45,7 @@ export class AuthService {
       );
   }
 
-  public profileGet(): Observable<AuthSession> {
+  public getProfile(): Observable<AuthSession> {
     return this.http.post<AuthSession>("/api/auth/profile", {});
   }
 
@@ -54,15 +54,15 @@ export class AuthService {
     localStorage.setItem("refreshToken", session.refreshToken);
   }
 
-  getAccessToken(): string | null {
+  public getAccessToken(): string | null {
     return localStorage.getItem("accessToken");
   }
 
-  getRefreshToken(): string | null {
+  public getRefreshToken(): string | null {
     return localStorage.getItem("refreshToken");
   }
 
-  logout() {
+  private clearTokens() {
     localStorage.clear();
   }
 }

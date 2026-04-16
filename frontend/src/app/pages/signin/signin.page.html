@@ -12,11 +12,21 @@
         <h1 class="text-2xl">Se connecter</h1>
 
         <div class="flex w-full flex-col gap-4 md:px-12">
-          <app-text-input-with-label-component class="w-full" label="Nom d'utilisateur ou E-mail" />
-          <app-text-input-with-label-component class="w-full" label="Mot de passe" />
+          <app-text-input-with-label-component
+            class="w-full"
+            label="Nom d'utilisateur ou E-mail"
+            [(value)]="usernameOrEmail"
+          />
+          <app-text-input-with-label-component
+            class="w-full"
+            label="Mot de passe"
+            [(value)]="password"
+          />
         </div>
 
-        <app-button-component variant="primary">S'inscrire</app-button-component>
+        <app-button-component variant="primary" (click)="signIn()">
+          Se Connecter
+        </app-button-component>
       </div>
     </ng-container>
 

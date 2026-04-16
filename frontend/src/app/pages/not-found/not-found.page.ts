@@ -1,12 +1,10 @@
-import { Component, signal } from "@angular/core";
+import { Component } from "@angular/core";
 import { HeaderFullComponent } from "../../components/header-full/header-full.component";
 
 @Component({
-  selector: "not-found-page",
+  selector: "app-not-found-page",
   imports: [HeaderFullComponent],
   templateUrl: "./not-found.page.html",
   styleUrls: [],
 })
-export class NotFoundPage {
-  protected readonly title = signal("mddweb");
-}
+export class NotFoundPage {}

@@ -1,10 +1,11 @@
-import { Component, signal } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { HeaderComponent } from "../header/header.component";
 import { ButtonComponent } from "../ui/button/button.component";
 import { ModalComponent } from "../ui/modal/modal.component";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideMenu, lucideUser } from "@ng-icons/lucide";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-header-full-component",
@@ -14,13 +15,18 @@ import { lucideMenu, lucideUser } from "@ng-icons/lucide";
   host: { style: "display: contents;" },
 })
 export class HeaderFullComponent {
+  protected readonly authService = inject(AuthService);
   protected readonly isMobileSidePanelVisible = signal(false);
 
-  closeMobileSidePanel() {
+  protected signOut() {
+    this.authService.signOut();
+  }
+
+  protected closeMobileSidePanel() {
     this.isMobileSidePanelVisible.set(false);
   }
 
-  openMobileSidePanel() {
+  protected openMobileSidePanel() {
     this.isMobileSidePanelVisible.set(true);
   }
 }

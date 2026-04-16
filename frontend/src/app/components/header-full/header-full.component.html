@@ -1,12 +1,15 @@
 <app-header-component>
   <div class="ml-auto hidden items-center md:visible md:flex">
-    <app-button-component variant="transparent" class="text-red-500" routerLink="/sign">
+    <app-button-component variant="transparent" class="text-red-500" (click)="signOut()">
       Se déconnecter
     </app-button-component>
+
     <app-button-component variant="transparent" class="text-violet-500" routerLink="/">
       Articles
     </app-button-component>
+
     <app-button-component variant="transparent" routerLink="/themes"> Thèmes </app-button-component>
+
     <app-button-component variant="transparent" routerLink="/profile">
       <div class="flex items-center justify-center rounded-full bg-gray-300 p-2">
         <ng-icon name="lucideUser" size="22" />
@@ -23,7 +26,7 @@
       (onClose)="closeMobileSidePanel()"
       innerClass="ml-auto flex h-full w-2/3 flex-col border-l bg-white items-end p-4"
     >
-      <app-button-component variant="transparent" class="text-red-500" routerLink="/sign">
+      <app-button-component variant="transparent" class="text-red-500" (click)="signOut()">
         Se déconnecter
       </app-button-component>
       <app-button-component variant="transparent" class="text-violet-500" routerLink="/">

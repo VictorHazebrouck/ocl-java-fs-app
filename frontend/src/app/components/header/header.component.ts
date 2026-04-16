@@ -7,6 +7,4 @@ import { RouterLink } from "@angular/router";
   templateUrl: "./header.component.html",
   host: { style: "display: contents;" },
 })
-export class HeaderComponent {
-  protected readonly title = signal("mddweb");
-}
+export class HeaderComponent {}

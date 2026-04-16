@@ -8,7 +8,7 @@ import { TextareaComponent } from "../../components/ui/textarea/textarea.compone
 import { RouterLink } from "@angular/router";
 
 @Component({
-  selector: "article-by-id-page",
+  selector: "app-article-by-id-page",
   imports: [
     HeaderFullComponent,
     ScrollComponent,
