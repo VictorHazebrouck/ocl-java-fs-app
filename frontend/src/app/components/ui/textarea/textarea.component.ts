@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
 @Component({
-  selector: "textarea-component",
+  selector: "app-textarea-component",
   imports: [NgClass],
   templateUrl: "./textarea.component.html",
   host: { style: "display: contents;" },

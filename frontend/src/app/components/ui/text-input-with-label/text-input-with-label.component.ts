@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input, model } from "@angular/core";
 
 @Component({
-  selector: "text-input-with-label-component",
+  selector: "app-text-input-with-label-component",
   imports: [NgClass],
   templateUrl: "./text-input-with-label.component.html",
   host: { style: "display: contents;" },

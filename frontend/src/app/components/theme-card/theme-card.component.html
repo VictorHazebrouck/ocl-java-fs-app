@@ -2,10 +2,12 @@
   <h3 class="text-left font-semibold">{{ title() }}</h3>
   <p class="text-left">{{ description() }}</p>
   @if (isSubscribed()) {
-    <button-component class="mx-auto mt-auto w-fit" variant="primary">
+    <app-button-component class="mx-auto mt-auto w-fit" variant="primary">
       Déjà abonné
-    </button-component>
+    </app-button-component>
   } @else {
-    <button-component class="mx-auto mt-auto w-fit" variant="primary"> S'abonner </button-component>
+    <app-button-component class="mx-auto mt-auto w-fit" variant="primary">
+      S'abonner
+    </app-button-component>
   }
 </div>

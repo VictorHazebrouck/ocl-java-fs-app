@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
 @Component({
-  selector: "scroll-component",
+  selector: "app-scroll-component",
   imports: [NgClass],
   templateUrl: "./scroll.component.html",
   host: { style: "display: contents;" },

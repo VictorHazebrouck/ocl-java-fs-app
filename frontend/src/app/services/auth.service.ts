@@ -29,6 +29,10 @@ export class AuthService {
       .pipe(tap((session) => this.storeSession(session)));
   }
 
+  public signOut() {
+    return this.logout();
+  }
+
   public refresh(): Observable<{ accessToken: string }> {
     return this.http
       .post<{ accessToken: string }>("/api/auth/refresh", {

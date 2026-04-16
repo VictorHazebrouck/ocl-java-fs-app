@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
 @Component({
-  selector: "article-card-component",
+  selector: "app-article-card-component",
   imports: [NgClass],
   templateUrl: "./article-card.component.html",
   host: { style: "display: contents;" },

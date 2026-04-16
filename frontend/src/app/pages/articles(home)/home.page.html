@@ -1,38 +1,42 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
-  <header-full-component />
-  <scroll-component class="h-full">
+  <app-header-full-component />
+  <app-scroll-component class="h-full">
     <div class="flex flex-col gap-6 p-8">
-      <three-parts-layout class="items-center gap-1">
+      <app-three-parts-layout class="items-center gap-1">
         <ng-container layout-left>
-          <button-component variant="primary" class="mx-auto md:mx-0" routerLink="/article-create">
+          <app-button-component
+            variant="primary"
+            class="mx-auto md:mx-0"
+            routerLink="/article-create"
+          >
             Créer un article
-          </button-component>
+          </app-button-component>
         </ng-container>
 
         <ng-container layout-right>
-          <button-component
+          <app-button-component
             variant="transparent"
             class="mx-auto md:mx-0 md:ml-auto"
             (click)="toggleSortBy()"
           >
             <span>Trier par</span>
             <ng-icon [name]="sortBy() === 'asc' ? 'lucideArrowUp' : 'lucideArrowDown'" />
-          </button-component>
+          </app-button-component>
         </ng-container>
-      </three-parts-layout>
+      </app-three-parts-layout>
 
-      <grid-layout>
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-        <article-card-component routerLink="/article/1" />
-      </grid-layout>
+      <app-grid-layout>
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+        <app-article-card-component routerLink="/article/1" />
+      </app-grid-layout>
     </div>
-  </scroll-component>
+  </app-scroll-component>
 </div>

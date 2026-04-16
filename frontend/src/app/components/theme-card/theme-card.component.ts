@@ -3,7 +3,7 @@ import { Component, input } from "@angular/core";
 import { ButtonComponent } from "../ui/button/button.component";
 
 @Component({
-  selector: "theme-card-component",
+  selector: "app-theme-card-component",
   imports: [NgClass, ButtonComponent],
   templateUrl: "./theme-card.component.html",
   host: { style: "display: contents;" },

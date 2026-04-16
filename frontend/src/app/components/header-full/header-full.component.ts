@@ -7,7 +7,7 @@ import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideMenu, lucideUser } from "@ng-icons/lucide";
 
 @Component({
-  selector: "header-full-component",
+  selector: "app-header-full-component",
   imports: [RouterLink, HeaderComponent, ButtonComponent, ModalComponent, NgIcon],
   viewProviders: [provideIcons({ lucideMenu, lucideUser })],
   templateUrl: "./header-full.component.html",

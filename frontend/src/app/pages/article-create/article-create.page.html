@@ -1,10 +1,10 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
-  <header-full-component />
-  <three-parts-layout class="h-full p-8">
+  <app-header-full-component />
+  <app-three-parts-layout class="h-full p-8">
     <ng-container layout-left>
-      <button-component variant="transparent" routerLink="/">
+      <app-button-component variant="transparent" routerLink="/">
         <ng-icon name="lucideArrowLeft" size="36" />
-      </button-component>
+      </app-button-component>
     </ng-container>
 
     <ng-container layout-middle>
@@ -12,13 +12,13 @@
         <h1 class="text-2xl">Créer un nouvel article</h1>
 
         <div class="flex h-[50vh] w-full flex-col gap-4">
-          <text-input-component placeholder="Sélectionner un theme" />
-          <text-input-component placeholder="Titre de l'article" />
-          <textarea-component class="h-full" placeholder="Contenu de l'article" />
+          <app-text-input-component placeholder="Sélectionner un theme" />
+          <app-text-input-component placeholder="Titre de l'article" />
+          <app-textarea-component class="h-full" placeholder="Contenu de l'article" />
         </div>
 
-        <button-component variant="primary">Créer</button-component>
+        <app-button-component variant="primary">Créer</app-button-component>
       </div>
     </ng-container>
-  </three-parts-layout>
+  </app-three-parts-layout>
 </div>

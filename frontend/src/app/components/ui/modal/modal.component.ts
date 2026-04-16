@@ -2,7 +2,7 @@ import { NgClass } from "@angular/common";
 import { Component, input, output } from "@angular/core";
 
 @Component({
-  selector: "modal-component",
+  selector: "app-modal-component",
   imports: [NgClass],
   templateUrl: "./modal.component.html",
   host: { style: "display: contents;" },

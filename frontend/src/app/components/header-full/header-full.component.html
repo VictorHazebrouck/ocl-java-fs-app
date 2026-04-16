@@ -1,17 +1,17 @@
-<header-component>
+<app-header-component>
   <div class="ml-auto hidden items-center md:visible md:flex">
-    <button-component variant="transparent" class="text-red-500" routerLink="/sign">
+    <app-button-component variant="transparent" class="text-red-500" routerLink="/sign">
       Se déconnecter
-    </button-component>
-    <button-component variant="transparent" class="text-violet-500" routerLink="/">
+    </app-button-component>
+    <app-button-component variant="transparent" class="text-violet-500" routerLink="/">
       Articles
-    </button-component>
-    <button-component variant="transparent" routerLink="/themes"> Thèmes </button-component>
-    <button-component variant="transparent" routerLink="/profile">
+    </app-button-component>
+    <app-button-component variant="transparent" routerLink="/themes"> Thèmes </app-button-component>
+    <app-button-component variant="transparent" routerLink="/profile">
       <div class="flex items-center justify-center rounded-full bg-gray-300 p-2">
         <ng-icon name="lucideUser" size="22" />
       </div>
-    </button-component>
+    </app-button-component>
   </div>
 
   <button class="ml-auto cursor-pointer md:hidden" (click)="openMobileSidePanel()">
@@ -19,22 +19,24 @@
   </button>
 
   @if (isMobileSidePanelVisible()) {
-    <modal-component
+    <app-modal-component
       (onClose)="closeMobileSidePanel()"
       innerClass="ml-auto flex h-full w-2/3 flex-col border-l bg-white items-end p-4"
     >
-      <button-component variant="transparent" class="text-red-500" routerLink="/sign">
+      <app-button-component variant="transparent" class="text-red-500" routerLink="/sign">
         Se déconnecter
-      </button-component>
-      <button-component variant="transparent" class="text-violet-500" routerLink="/">
+      </app-button-component>
+      <app-button-component variant="transparent" class="text-violet-500" routerLink="/">
         Articles
-      </button-component>
-      <button-component variant="transparent" routerLink="/themes"> Thèmes </button-component>
-      <button-component variant="transparent" routerLink="/profile" class="mt-auto ml-auto">
+      </app-button-component>
+      <app-button-component variant="transparent" routerLink="/themes">
+        Thèmes
+      </app-button-component>
+      <app-button-component variant="transparent" routerLink="/profile" class="mt-auto ml-auto">
         <div class="flex items-center justify-center rounded-full bg-gray-300 p-2">
           <ng-icon name="lucideUser" size="28" />
         </div>
-      </button-component>
-    </modal-component>
+      </app-button-component>
+    </app-modal-component>
   }
-</header-component>
+</app-header-component>

@@ -5,7 +5,7 @@ export type Variant = "outline" | "primary" | "transparent";
 export type Color = "primary" | "danger" | "black";
 
 @Component({
-  selector: "button-component",
+  selector: "app-button-component",
   imports: [NgClass],
   templateUrl: "./button.component.html",
   host: { style: "display: contents;" },

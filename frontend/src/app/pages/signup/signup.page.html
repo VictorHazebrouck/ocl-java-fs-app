@@ -1,10 +1,10 @@
 <div class="flex h-dvh w-dvw flex-col bg-white">
-  <header-component />
-  <three-parts-layout class="h-full p-8">
+  <app-header-component />
+  <app-three-parts-layout class="h-full p-8">
     <ng-container layout-left>
-      <button-component routerLink="/sign" variant="transparent">
+      <app-button-component routerLink="/sign" variant="transparent">
         <ng-icon name="lucideArrowLeft" size="36" />
-      </button-component>
+      </app-button-component>
     </ng-container>
 
     <ng-container layout-middle>
@@ -12,15 +12,17 @@
         <h1 class="text-2xl">S'inscrire</h1>
 
         <div class="flex w-full flex-col gap-4 md:px-12">
-          <text-input-with-label-component label="Nom d'utilisateur" [(value)]="username" />
-          <text-input-with-label-component label="Addresse e-mail" [(value)]="email" />
-          <text-input-with-label-component label="Mot de passe" [(value)]="password" />
+          <app-text-input-with-label-component label="Nom d'utilisateur" [(value)]="username" />
+          <app-text-input-with-label-component label="Addresse e-mail" [(value)]="email" />
+          <app-text-input-with-label-component label="Mot de passe" [(value)]="password" />
         </div>
 
-        <button-component variant="primary" (click)="onClick()">S'inscrire</button-component>
+        <app-button-component variant="primary" (click)="onClick()"
+          >S'inscrire</app-button-component
+        >
       </div>
     </ng-container>
 
     <!-- blank -->
-  </three-parts-layout>
+  </app-three-parts-layout>
 </div>
