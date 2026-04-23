@@ -1,21 +1,12 @@
 <div class="flex aspect-video flex-col gap-4 rounded-md bg-gray-100 p-4" [ngClass]="[class()]">
   <h3 class="text-left font-semibold">{{ topic().name }}</h3>
   <p class="text-left">{{ topic().description }}</p>
-  @if (topic().amISubscribed) {
-    <app-button-component
-      class="mx-auto mt-auto w-fit"
-      variant="primary"
-      (click)="onClickUnubscribe.emit()"
-    >
-      Déjà abonné
-    </app-button-component>
-  } @else {
-    <app-button-component
-      class="mx-auto mt-auto w-fit"
-      variant="primary"
-      (click)="onClickSubscribe.emit()"
-    >
-      S'abonner
-    </app-button-component>
-  }
+
+  <app-button-component
+    class="mx-auto mt-auto w-fit"
+    [variant]="buttonVariant()"
+    (click)="onClick()"
+  >
+    {{ topic().amISubscribed ? subscribedTitle() : notSubscribedTitle() }}
+  </app-button-component>
 </div>

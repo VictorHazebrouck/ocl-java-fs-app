@@ -21,7 +21,7 @@ export class TopicService {
   }
 
   /**  for `/profile` page */
-  public getSubscribedTopics(): Observable<TopicWithAmISubscribed[]> {
+  public getSubscribedTopics(): Observable<Topic[]> {
     return this.http.get<TopicWithAmISubscribed[]>("/api/topic/only-subscribed");
   }
 

@@ -26,16 +26,13 @@
         <h1 class="mx-auto text-2xl font-semibold">Abonnements</h1>
 
         <app-grid-layout>
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
-          <app-theme-card-component />
+          @for(topic of topics(); track topic.id){
+          <app-theme-card-component
+            [topic]="{...topic, amISubscribed: true}"
+            subscribedTitle="Se désabonner"
+            (onClickUnubscribe)="unsubscribeFromTopic(topic.id!)"
+          />
+          }
         </app-grid-layout>
       </div>
     </div>

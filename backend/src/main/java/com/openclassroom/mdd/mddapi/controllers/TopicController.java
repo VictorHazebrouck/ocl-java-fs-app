@@ -39,4 +39,15 @@ public class TopicController {
 
         return ResponseEntity.ok(topics);
     }
+
+    @GetMapping("/api/topic/only-subscribed")
+    public ResponseEntity<List<TopicDto>> getTopicdSubscribed() {
+        User user = (User) SecurityContextHolder.getContext()
+            .getAuthentication()
+            .getPrincipal();
+
+        List<Topic> topics = topicService.getTopicsSubscribed(user);
+
+        return ResponseEntity.ok(TopicMapper.INSTANCE.toDto(topics));
+    }
 }

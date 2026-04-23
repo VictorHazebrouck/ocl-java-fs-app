@@ -1,6 +1,6 @@
 import { NgClass } from "@angular/common";
 import { Component, inject, input, output } from "@angular/core";
-import { ButtonComponent } from "../ui/button/button.component";
+import { ButtonComponent, Variant } from "../ui/button/button.component";
 import { TopicWithAmISubscribed } from "@app/models/topic.model";
 import { TopicService } from "@app/services/topic.service";
 
@@ -12,11 +12,23 @@ import { TopicService } from "@app/services/topic.service";
 })
 export class ThemeCardComponent {
   class = input("");
+  subscribedTitle = input("Déjà abonné");
+  notSubscribedTitle = input("S'abonner");
+  buttonVariant = input<Variant>("primary");
   topic = input<Partial<TopicWithAmISubscribed>>({
-    name: "Tiyle",
-    description: "JAJJAJAJ",
+    name: "",
+    description: "",
     amISubscribed: true,
   });
+
   onClickSubscribe = output<void>();
   onClickUnubscribe = output<void>();
+
+  protected onClick() {
+    if (this.topic().amISubscribed) {
+      this.onClickUnubscribe.emit();
+    } else {
+      this.onClickSubscribe.emit();
+    }
+  }
 }

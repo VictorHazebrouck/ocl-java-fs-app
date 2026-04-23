@@ -33,12 +33,12 @@ export class ArticleCreatePage {
   private readonly topicService = inject(TopicService);
   private readonly router = inject(Router);
 
-  protected topics = toSignal(this.topicService.getTopics(), { initialValue: [] });
+  protected topics = toSignal(this.topicService.getSubscribedTopics(), { initialValue: [] });
   protected topicNameSelected = signal("");
+
   protected topicId = computed(() => {
     return this.topics().find((e) => e.name === this.topicNameSelected())?.id;
   });
-
   protected title = model("");
   protected content = model("");
 

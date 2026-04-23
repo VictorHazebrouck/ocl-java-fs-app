@@ -1,6 +1,7 @@
 package com.openclassroom.mdd.mddapi.services;
 
 import com.openclassroom.mdd.mddapi.dtos.TopicAmISubscribedDto;
+import com.openclassroom.mdd.mddapi.entities.Subscription;
 import com.openclassroom.mdd.mddapi.entities.Topic;
 import com.openclassroom.mdd.mddapi.repositories.SubscriptionRepository;
 import com.openclassroom.mdd.mddapi.repositories.TopicRepository;
@@ -35,6 +36,15 @@ public class TopicService {
                     topic.getUpdatedAt()
                 )
             )
+            .toList();
+    }
+
+    public List<Topic> getTopicsSubscribed(User user) {
+        List<Subscription> topics = subsciptionRepository.getByUser(user);
+
+        return topics
+            .stream()
+            .map(sub -> sub.getTopic())
             .toList();
     }
 

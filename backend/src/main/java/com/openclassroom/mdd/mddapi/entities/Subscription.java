@@ -1,7 +1,6 @@
 package com.openclassroom.mdd.mddapi.entities;
 
 import com.openclassroom.mdd.mddauth.entities.User;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
@@ -12,12 +11,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
@@ -46,19 +42,4 @@ public class Subscription {
     @ManyToOne
     @JoinColumn(name = "topic_id", nullable = false)
     private Topic topic;
-
-    @CreatedDate
-    @Column(
-        nullable = false,
-        updatable = false,
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-    )
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(
-        nullable = false,
-        columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
-    )
-    private LocalDateTime updatedAt;
 }

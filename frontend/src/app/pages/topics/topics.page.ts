@@ -4,7 +4,6 @@ import { GridLayout } from "@app/components/layouts/grid-layout/grid.layout";
 import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { TopicService } from "@app/services/topic.service";
-import { toSignal } from "@angular/core/rxjs-interop";
 import { TopicWithAmISubscribed } from "@app/models/topic.model";
 
 @Component({
@@ -23,14 +22,10 @@ export class ThemesPage {
   }
 
   protected subscribeToTopic(id: string) {
-    console.log("kakaka");
-
     this.topicService.createTopicSubscription(id).subscribe({
       next: () => this.refreshTopics(),
       error: console.error,
     });
-
-    // invalidare topicService.refreshTopics
   }
 
   protected unsubscribeFromTopic(id: string) {

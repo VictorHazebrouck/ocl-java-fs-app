@@ -1,7 +1,7 @@
 import { NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
 
-export type Variant = "outline" | "primary" | "transparent";
+export type Variant = "outline" | "primary" | "transparent" | "muted";
 export type Color = "primary" | "danger" | "black";
 
 @Component({
