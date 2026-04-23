@@ -1,4 +1,4 @@
-import { Component, inject, signal } from "@angular/core";
+import { Component, inject, model, signal } from "@angular/core";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { ThemeCardComponent } from "@app/components/theme-card/theme-card.component";
 import { TextInputComponent } from "@app/components/ui/text-input/text-input.component";
@@ -9,6 +9,8 @@ import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/thr
 
 import { TopicService } from "@app/services/topic.service";
 import { Topic } from "@app/models/topic.model";
+import { AuthService } from "@app/services/auth.service";
+import { User } from "@app/models/user.model";
 
 @Component({
   selector: "app-profile-page",
@@ -26,11 +28,24 @@ import { Topic } from "@app/models/topic.model";
 })
 export class ProfilePage {
   private readonly topicService = inject(TopicService);
+  private readonly authService = inject(AuthService);
 
   protected topics = signal<Topic[]>([]);
 
+  protected username = model("");
+  protected email = model("");
+  protected password = model("");
+
   constructor() {
     this.refreshTopics();
+    this.refreshUser();
+  }
+
+  protected onClick() {
+    if (this.password()) {
+      this.changePassword();
+    }
+    this.changeUsername();
   }
 
   protected unsubscribeFromTopic(id: string) {
@@ -40,9 +55,34 @@ export class ProfilePage {
     });
   }
 
+  private changeUsername() {
+    this.authService.setUsername(this.username()).subscribe({
+      next: () => this.refreshUser(),
+      error: console.error,
+    });
+  }
+
+  private changePassword() {
+    this.authService.setPassword(this.password()).subscribe({
+      next: () => this.password.set(""),
+      error: console.error,
+    });
+  }
+
   private refreshTopics() {
     this.topicService.getSubscribedTopics().subscribe({
       next: (topics) => this.topics.set(topics),
+      error: console.error,
+    });
+  }
+
+  private refreshUser() {
+    this.authService.getProfile().subscribe({
+      next: (p) => {
+        console.log(p.username);
+        this.username.set(p.username);
+        this.email.set(p.email);
+      },
       error: console.error,
     });
   }

@@ -23,6 +23,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
 
     @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getServletPath();
+        return (
+            path.equals("/auth/signin") ||
+            path.equals("/auth/signup") ||
+            path.equals("/auth/refresh")
+        );
+    }
+
+    @Override
     protected void doFilterInternal(
         HttpServletRequest req,
         HttpServletResponse res,
@@ -34,8 +44,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String authHeader = req.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("ERROR: no Bearer in headers");
-            filterChain.doFilter(req, res);
+            System.out.println("Missing bearer!");
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.getWriter().write("Missing or invalid Authorization header");
             return;
         }
 
@@ -55,6 +66,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(auth);
         } catch (Exception e) {
             System.out.println("Invalid JWT: " + e.getMessage());
+            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            res.getWriter().write("Invalid JWT");
+            return;
         }
         filterChain.doFilter(req, res);
     }

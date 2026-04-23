@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, tap } from "rxjs";
 import { AuthSession } from "../models/auth-session.model";
+import { User } from "@app/models/user.model";
 
 @Injectable({
   providedIn: "root",
@@ -39,21 +40,33 @@ export class AuthService {
       .pipe(tap((session) => this.storeSession(session)));
   }
 
-  public getProfile(): Observable<AuthSession> {
-    return this.http.post<AuthSession>("/api/auth/profile", {});
+  public getProfile(): Observable<User> {
+    return this.http.get<User>("/auth/user", {});
   }
 
-  private storeSession(session: AuthSession) {
-    localStorage.setItem("accessToken", session.accessToken);
-    localStorage.setItem("refreshToken", session.refreshToken);
+  public setUsername(username: string): Observable<User> {
+    return this.http.post<User>("/auth/username", {
+      newUsername: username,
+    });
+  }
+
+  public setPassword(password: string): Observable<User> {
+    return this.http.post<User>("/auth/password", {
+      newPassword: password,
+    });
   }
 
   public getAccessToken(): string | null {
     return localStorage.getItem("accessToken");
   }
 
-  public getRefreshToken(): string | null {
+  private getRefreshToken(): string | null {
     return localStorage.getItem("refreshToken");
+  }
+
+  private storeSession(session: AuthSession) {
+    localStorage.setItem("accessToken", session.accessToken);
+    localStorage.setItem("refreshToken", session.refreshToken);
   }
 
   private clearTokens() {

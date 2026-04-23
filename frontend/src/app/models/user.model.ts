@@ -4,7 +4,7 @@ export interface User {
   id: Id;
   username: string;
   email: string;
-  token: string;
+  emailVerified: string;
   createdAt: ISOStringDate;
   updatedAt: ISOStringDate;
 }

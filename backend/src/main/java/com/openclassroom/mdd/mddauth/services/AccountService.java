@@ -54,4 +54,14 @@ public class AccountService {
 
         return account;
     }
+
+    public Account setAccountPasword(User user, String newPassword)
+        throws RuntimeException {
+        Account account = accountRepository
+            .getByUserIdAndProviderId(user.getId(), Account.ProviderId.PASSWORD)
+            .orElseThrow();
+
+        account.setPassword(newPassword);
+        return accountRepository.save(account);
+    }
 }

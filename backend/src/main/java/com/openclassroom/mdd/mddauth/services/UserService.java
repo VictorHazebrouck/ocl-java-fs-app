@@ -34,4 +34,13 @@ public class UserService {
     public void deleteUser(User user) {
         userRepository.delete(user);
     }
+
+    public User setUsername(User user, String newUsername) {
+        user.setUsername(newUsername);
+        return userRepository.save(user);
+    }
+
+    public User getUser(User user) {
+        return userRepository.getReferenceById(user.getId());
+    }
 }

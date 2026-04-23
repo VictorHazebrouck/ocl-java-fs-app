@@ -8,14 +8,14 @@
             <h1 class="text-2xl font-semibold">Profil Utilisateur</h1>
 
             <div class="flex flex-col gap-4">
-              <app-text-input-component placeholder="Username..." />
-              <app-text-input-component placeholder="Email..." />
-              <app-text-input-component placeholder="Password..." />
+              <app-text-input-component placeholder="Username..." [(value)]="username" />
+              <app-text-input-component placeholder="Email..." [(value)]="email" />
+              <app-text-input-component placeholder="Password..." [(value)]="password" />
             </div>
 
-            <app-button-component variant="primary" class="mx-auto w-fit"
-              >Sauvegarder</app-button-component
-            >
+            <app-button-component variant="primary" class="mx-auto w-fit" (click)="onClick()">
+              Sauvegarder
+            </app-button-component>
           </div>
         </ng-container>
       </app-three-parts-layout>
