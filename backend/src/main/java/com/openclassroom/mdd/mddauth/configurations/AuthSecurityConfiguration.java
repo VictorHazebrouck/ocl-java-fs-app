@@ -1,7 +1,6 @@
 package com.openclassroom.mdd.mddauth.configurations;
 
 import com.openclassroom.mdd.mddauth.filters.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;

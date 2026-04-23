@@ -30,20 +30,23 @@
         <p class="text-xl">Commentaires</p>
 
         <div class="flex w-full flex-col gap-4">
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
-          <app-comment-card-component class="w-full" />
+          @for (comment of comments(); track comment.id) {
+            <app-comment-card-component
+              class="w-full"
+              [username]="comment.author.username"
+              [content]="comment.content"
+            />
+          }
         </div>
       </div>
 
       <div class="flex h-40 items-center gap-4">
-        <app-textarea-component placeholder="Écrivez ici votre commentaire" />
+        <app-textarea-component
+          placeholder="Écrivez ici votre commentaire"
+          [(value)]="commentContent"
+        />
 
-        <button class="cursor-pointer text-violet-500">
+        <button class="cursor-pointer text-violet-500" (click)="addComment()">
           <ng-icon name="lucideSend" size="36" />
         </button>
       </div>

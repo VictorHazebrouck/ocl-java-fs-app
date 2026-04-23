@@ -38,9 +38,6 @@ public class ArticleController {
             user
         );
 
-        System.out.println("Hello from createArticle route !");
-        System.out.println(user);
-
         return ResponseEntity.ok(ArticleMapper.INSTANCE.toDto(newArticle));
     }
 

@@ -4,7 +4,11 @@ import com.openclassroom.mdd.mddauth.dtos.UserDto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import lombok.ToString;
+import lombok.Value;
 
+@ToString
+@Value
 public class CommentDto {
 
     @NotNull

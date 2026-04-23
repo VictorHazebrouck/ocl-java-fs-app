@@ -1,14 +1,17 @@
-import { Component, inject, input } from "@angular/core";
+import { Component, computed, inject, input, model, signal } from "@angular/core";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft, lucideSend } from "@ng-icons/lucide";
 import { CommentCardComponent } from "@app/components/comment-card/comment-card.component";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { TextareaComponent } from "@app/components/ui/textarea/textarea.component";
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { ArticleService } from "@app/services/article.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { DatePipe } from "@angular/common";
+import { CommentService } from "@app/services/comment.service";
+import { map, switchMap, tap } from "rxjs";
+import { CommentWithAuthor } from "@app/models/comment.model";
 
 @Component({
   selector: "app-article-by-id-page",
@@ -26,7 +29,48 @@ import { DatePipe } from "@angular/common";
   host: { style: "display: contents;" },
 })
 export class ArticleByIdPage {
+  private readonly route = inject(ActivatedRoute);
   private readonly articleService = inject(ArticleService);
+  private readonly commentSerice = inject(CommentService);
 
-  article = toSignal(this.articleService.getArticleById("1"));
+  article = toSignal(
+    this.route.paramMap.pipe(
+      map((params) => params.get("id")!),
+      switchMap((id) => this.articleService.getArticleById(id)),
+    ),
+  );
+
+  comments = signal<CommentWithAuthor[]>([]);
+
+  commentContent = model("");
+
+  constructor() {
+    this.refreshComments();
+  }
+
+  addComment() {
+    this.commentSerice
+      .createComment({
+        articleId: this.article()!.id,
+        content: this.commentContent(),
+      })
+      .subscribe({
+        next: () => this.refreshComments(),
+        error: console.error,
+      });
+  }
+
+  private refreshComments() {
+    if (this.article()?.id) {
+      this.commentSerice.getComments(this.article()!.id).subscribe({
+        next: (comments) => {
+          this.comments.set(comments);
+          console.log(comments);
+        },
+        error: console.error,
+      });
+    }
+  }
+
+  // article = toSignal(this.articleService.getArticleById("1"));
 }

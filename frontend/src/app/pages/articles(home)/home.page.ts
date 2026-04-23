@@ -32,10 +32,16 @@ export class HomePage {
   private readonly articleService = inject(ArticleService);
 
   protected readonly sortBy = signal<"asc" | "desc">("asc");
-  protected readonly articles = toSignal(this.articleService.getArticles());
-  // protected readonly articles = computed<Article[]>(() => [
-  // this.articleService.
-  // ]);
+  protected readonly articles = toSignal(this.articleService.getArticles(), { initialValue: [] });
+  protected readonly articlesSorted = computed(() =>
+    this.articles().sort((a, b) => {
+      if (this.sortBy() == "asc") {
+        return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      } else {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    }),
+  );
 
   protected toggleSortBy() {
     this.sortBy.update((value) => (value === "asc" ? "desc" : "asc"));

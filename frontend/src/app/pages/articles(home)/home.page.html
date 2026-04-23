@@ -26,8 +26,8 @@
       </app-three-parts-layout>
 
       <app-grid-layout>
-        @for (article of articles(); track article.id) {
-          <app-article-card-component [routerLink]="`/article/${article.id}`" [article]="article" />
+        @for (article of articlesSorted(); track article.id) {
+        <app-article-card-component [routerLink]="`/article/${article.id}`" [article]="article" />
         }
       </app-grid-layout>
     </div>
