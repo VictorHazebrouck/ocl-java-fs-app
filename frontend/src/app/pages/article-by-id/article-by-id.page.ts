@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, model, signal } from "@angular/core";
+import { Component, inject, model, signal } from "@angular/core";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft, lucideSend } from "@ng-icons/lucide";
 import { CommentCardComponent } from "@app/components/comment-card/comment-card.component";
@@ -10,7 +10,7 @@ import { ArticleService } from "@app/services/article.service";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { DatePipe } from "@angular/common";
 import { CommentService } from "@app/services/comment.service";
-import { map, switchMap, tap } from "rxjs";
+import { map, switchMap, take } from "rxjs";
 import { CommentWithAuthor } from "@app/models/comment.model";
 
 @Component({
@@ -49,11 +49,14 @@ export class ArticleByIdPage {
   }
 
   addComment() {
+    const article = this.article();
+    if (!article?.id) return;
     this.commentSerice
       .createComment({
-        articleId: this.article()!.id,
+        articleId: article.id,
         content: this.commentContent(),
       })
+      .pipe(take(1))
       .subscribe({
         next: () => this.refreshComments(),
         error: console.error,
@@ -62,15 +65,13 @@ export class ArticleByIdPage {
 
   private refreshComments() {
     if (this.article()?.id) {
-      this.commentSerice.getComments(this.article()!.id).subscribe({
-        next: (comments) => {
-          this.comments.set(comments);
-          console.log(comments);
-        },
-        error: console.error,
-      });
+      this.commentSerice
+        .getComments(this.article()!.id)
+        .pipe(take(1))
+        .subscribe({
+          next: (comments) => this.comments.set(comments),
+          error: console.error,
+        });
     }
   }
-
-  // article = toSignal(this.articleService.getArticleById("1"));
 }

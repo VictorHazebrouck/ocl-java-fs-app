@@ -10,7 +10,7 @@ import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/thr
 import { TopicService } from "@app/services/topic.service";
 import { Topic } from "@app/models/topic.model";
 import { AuthService } from "@app/services/auth.service";
-import { User } from "@app/models/user.model";
+import { take } from "rxjs";
 
 @Component({
   selector: "app-profile-page",
@@ -49,41 +49,56 @@ export class ProfilePage {
   }
 
   protected unsubscribeFromTopic(id: string) {
-    this.topicService.deleteTopicSubscription(id).subscribe({
-      next: () => this.refreshTopics(),
-      error: console.error,
-    });
+    this.topicService
+      .deleteTopicSubscription(id)
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.refreshTopics(),
+        error: console.error,
+      });
   }
 
   private changeUsername() {
-    this.authService.setUsername(this.username()).subscribe({
-      next: () => this.refreshUser(),
-      error: console.error,
-    });
+    this.authService
+      .setUsername(this.username())
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.refreshUser(),
+        error: console.error,
+      });
   }
 
   private changePassword() {
-    this.authService.setPassword(this.password()).subscribe({
-      next: () => this.password.set(""),
-      error: console.error,
-    });
+    this.authService
+      .setPassword(this.password())
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.password.set(""),
+        error: console.error,
+      });
   }
 
   private refreshTopics() {
-    this.topicService.getSubscribedTopics().subscribe({
-      next: (topics) => this.topics.set(topics),
-      error: console.error,
-    });
+    this.topicService
+      .getSubscribedTopics()
+      .pipe(take(1))
+      .subscribe({
+        next: (topics) => this.topics.set(topics),
+        error: console.error,
+      });
   }
 
   private refreshUser() {
-    this.authService.getProfile().subscribe({
-      next: (p) => {
-        console.log(p.username);
-        this.username.set(p.username);
-        this.email.set(p.email);
-      },
-      error: console.error,
-    });
+    this.authService
+      .getProfile()
+      .pipe(take(1))
+      .subscribe({
+        next: (p) => {
+          console.log(p.username);
+          this.username.set(p.username);
+          this.email.set(p.email);
+        },
+        error: console.error,
+      });
   }
 }

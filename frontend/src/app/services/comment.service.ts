@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ArticleCreation, ArticleWithAuthorAndTopic } from "../models/article.model";
 import { Comment, CommentWithAuthor } from "@app/models/comment.model";
 
 @Injectable({

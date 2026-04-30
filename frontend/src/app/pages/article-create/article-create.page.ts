@@ -11,6 +11,7 @@ import { ArticleService } from "@app/services/article.service";
 import { TopicService } from "@app/services/topic.service";
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowLeft } from "@ng-icons/lucide";
+import { take } from "rxjs";
 
 @Component({
   selector: "app-article-create-page",
@@ -33,16 +34,16 @@ export class ArticleCreatePage {
   private readonly topicService = inject(TopicService);
   private readonly router = inject(Router);
 
-  protected topics = toSignal(this.topicService.getSubscribedTopics(), { initialValue: [] });
-  protected topicNameSelected = signal("");
+  readonly topics = toSignal(this.topicService.getSubscribedTopics(), { initialValue: [] });
+  readonly topicNameSelected = signal("");
 
-  protected topicId = computed(() => {
+  readonly topicId = computed(() => {
     return this.topics().find((e) => e.name === this.topicNameSelected())?.id;
   });
-  protected title = model("");
-  protected content = model("");
+  readonly title = model("");
+  readonly content = model("");
 
-  protected createArticle() {
+  createArticle() {
     const topicId = this.topicId();
     if (!topicId) {
       return;
@@ -54,6 +55,7 @@ export class ArticleCreatePage {
         content: this.content(),
         topicId: topicId,
       })
+      .pipe(take(1))
       .subscribe({
         next: () => this.router.navigate(["/"]),
         error: console.error,

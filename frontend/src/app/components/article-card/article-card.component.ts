@@ -1,6 +1,6 @@
 import { DatePipe, NgClass } from "@angular/common";
 import { Component, input } from "@angular/core";
-import { Article, ArticleWithAuthorAndTopic } from "@app/models/article.model";
+import { ArticleWithAuthorAndTopic } from "@app/models/article.model";
 
 @Component({
   selector: "app-article-card-component",

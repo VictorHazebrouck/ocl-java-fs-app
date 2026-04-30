@@ -7,6 +7,7 @@ import { ThreePartsLayout } from "@app/components/layouts/three-parts-layout/thr
 import { ButtonComponent } from "@app/components/ui/button/button.component";
 import { TextInputWithLabelComponent } from "@app/components/ui/text-input-with-label/text-input-with-label.component";
 import { AuthService } from "@app/services/auth.service";
+import { take } from "rxjs";
 
 @Component({
   selector: "app-signup-page",
@@ -37,6 +38,7 @@ export class SignupPage {
         email: this.email(),
         password: this.password(),
       })
+      .pipe(take(1))
       .subscribe({
         next: () => this.router.navigate(["/"]),
         error: console.error,

@@ -5,6 +5,7 @@ import { ScrollComponent } from "@app/components/ui/scroll/scroll.component";
 import { HeaderFullComponent } from "@app/components/header-full/header-full.component";
 import { TopicService } from "@app/services/topic.service";
 import { TopicWithAmISubscribed } from "@app/models/topic.model";
+import { take } from "rxjs";
 
 @Component({
   selector: "app-topics-page",
@@ -12,7 +13,7 @@ import { TopicWithAmISubscribed } from "@app/models/topic.model";
   templateUrl: "./topics.page.html",
   host: { style: "display: contents;" },
 })
-export class ThemesPage {
+export class TopicsPage {
   private readonly topicService = inject(TopicService);
 
   protected topics = signal<TopicWithAmISubscribed[]>([]);
@@ -22,24 +23,31 @@ export class ThemesPage {
   }
 
   protected subscribeToTopic(id: string) {
-    this.topicService.createTopicSubscription(id).subscribe({
-      next: () => this.refreshTopics(),
-      error: console.error,
-    });
+    this.topicService
+      .createTopicSubscription(id)
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.refreshTopics(),
+        error: console.error,
+      });
   }
 
   protected unsubscribeFromTopic(id: string) {
-    console.log("kakaka");
-
-    this.topicService.deleteTopicSubscription(id).subscribe({
-      next: () => this.refreshTopics(),
-      error: console.error,
-    });
+    this.topicService
+      .deleteTopicSubscription(id)
+      .pipe(take(1))
+      .subscribe({
+        next: () => this.refreshTopics(),
+        error: console.error,
+      });
   }
 
   private refreshTopics() {
-    this.topicService.getTopicsWithSubscriptionInfo().subscribe({
-      next: (topics) => this.topics.set(topics),
-    });
+    this.topicService
+      .getTopicsWithSubscriptionInfo()
+      .pipe(take(1))
+      .subscribe({
+        next: (topics) => this.topics.set(topics),
+      });
   }
 }

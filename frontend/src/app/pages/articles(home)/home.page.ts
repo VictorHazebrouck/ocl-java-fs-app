@@ -9,11 +9,10 @@ import { HeaderFullComponent } from "@app/components/header-full/header-full.com
 import { NgIcon, provideIcons } from "@ng-icons/core";
 import { lucideArrowDown, lucideArrowUp } from "@ng-icons/lucide";
 import { ArticleService } from "@app/services/article.service";
-import { Article } from "@app/models/article.model";
 import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
-  selector: "home-page",
+  selector: "app-home-page",
   imports: [
     HeaderFullComponent,
     ThreePartsLayout,
@@ -31,9 +30,9 @@ import { toSignal } from "@angular/core/rxjs-interop";
 export class HomePage {
   private readonly articleService = inject(ArticleService);
 
-  protected readonly sortBy = signal<"asc" | "desc">("asc");
-  protected readonly articles = toSignal(this.articleService.getArticles(), { initialValue: [] });
-  protected readonly articlesSorted = computed(() =>
+  readonly sortBy = signal<"asc" | "desc">("asc");
+  readonly articles = toSignal(this.articleService.getArticles(), { initialValue: [] });
+  readonly articlesSorted = computed(() =>
     this.articles().sort((a, b) => {
       if (this.sortBy() == "asc") {
         return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
