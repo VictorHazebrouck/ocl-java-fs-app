@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @SpringBootTest
 @Transactional
 @AutoConfigureMockMvc
-class ArticleControllerIntegrationTest {
+class SubscriptionControllerIntegrationTest {
 
     private static final String PASSWORD = "password";
     private static final String USER_AGENT = "TEST_AGENT";
@@ -31,23 +31,13 @@ class ArticleControllerIntegrationTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
-    @DisplayName("Should create article when authenticated")
-    void should_create_article() throws Exception {
+    @DisplayName("Should subscribe to topic when authenticated")
+    void should_subscribe_to_topic() throws Exception {
         AuthSignRes tokens = signupAndGetTokens();
-
-        String reqBody = """
-                {
-                    "title": "My Article",
-                    "content": "This is content",
-                    "topicId": 1
-                }
-            """;
 
         mockMvc
             .perform(
-                post("/api/article")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(reqBody)
+                post("/api/subscription/1")
                     .header(
                         "Authorization",
                         "Bearer " + tokens.getAccessToken()
@@ -55,78 +45,31 @@ class ArticleControllerIntegrationTest {
                     .header("User-Agent", USER_AGENT)
             )
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.title").value("My Article"))
-            .andExpect(jsonPath("$.content").value("This is content"));
+            .andExpect(content().string("true"));
     }
 
     @Test
-    @DisplayName("Should get all articles")
-    void should_get_articles() throws Exception {
+    @DisplayName("Should unsubscribe from topic when authenticated")
+    void should_unsubscribe_from_topic() throws Exception {
         AuthSignRes tokens = signupAndGetTokens();
 
         mockMvc
             .perform(
-                get("/api/article")
+                delete("/api/subscription/1")
                     .header(
                         "Authorization",
                         "Bearer " + tokens.getAccessToken()
                     )
                     .header("User-Agent", USER_AGENT)
             )
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$").isArray());
-    }
-
-    @Test
-    @DisplayName("Should get article by id")
-    void should_get_article_by_id() throws Exception {
-        AuthSignRes tokens = signupAndGetTokens();
-
-        String reqBody = """
-                {
-                    "title": "Test Article",
-                    "content": "Content",
-                    "topicId": 1
-                }
-            """;
-
-        String response = mockMvc
-            .perform(
-                post("/api/article")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .content(reqBody)
-                    .header(
-                        "Authorization",
-                        "Bearer " + tokens.getAccessToken()
-                    )
-                    .header("User-Agent", USER_AGENT)
-            )
-            .andReturn()
-            .getResponse()
-            .getContentAsString();
-
-        JsonNode node = objectMapper.readTree(response);
-        Long articleId = node.get("id").asLong();
-
-        mockMvc
-            .perform(
-                get("/api/article/" + articleId)
-                    .header(
-                        "Authorization",
-                        "Bearer " + tokens.getAccessToken()
-                    )
-                    .header("User-Agent", USER_AGENT)
-            )
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(articleId))
-            .andExpect(jsonPath("$.title").value("Test Article"));
+            .andExpect(status().isOk());
     }
 
     @Test
     @DisplayName("Should return 401 when no token provided")
     void should_fail_without_token() throws Exception {
         mockMvc
-            .perform(get("/api/article"))
+            .perform(post("/api/subscription/1"))
             .andExpect(status().isUnauthorized());
     }
 

@@ -1,111 +1,129 @@
-// package com.openclassroom.mdd.mddapi.controllers;
-// import static org.junit.jupiter.api.Assertions.*;
-// import com.fasterxml.jackson.databind.JsonNode;
-// import com.fasterxml.jackson.databind.ObjectMapper;
-// import com.openclassroom.mdd.mddauth.dtos.AuthSigninReq;
-// import com.openclassroom.mdd.mddauth.dtos.AuthSignupReq;
-// import org.junit.jupiter.api.BeforeEach;
-// import org.junit.jupiter.api.Test;
-// import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.boot.resttestclient.TestRestTemplate;
-// import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate;
-// import org.springframework.boot.test.context.SpringBootTest;
-// import org.springframework.boot.test.web.server.LocalServerPort;
-// import org.springframework.http.*;
-// @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-// @AutoConfigureTestRestTemplate
-// public class TopicControllerIntegrationTest {
-//     @LocalServerPort
-//     private int port;
-//     @Autowired
-//     private TestRestTemplate restTemplate;
-//     private final ObjectMapper objectMapper = new ObjectMapper();
-//     private final String email = "topic@test.com";
-//     private final String username = "topicuser";
-//     private final String password = "password";
-//     private String baseUrl() {
-//         return "http://localhost:" + port;
-//     }
-//     @BeforeEach
-//     void setupUser() {
-//         AuthSignupReq signupReq = new AuthSignupReq(email, username, password);
-//         HttpHeaders headers = new HttpHeaders();
-//         headers.setContentType(MediaType.APPLICATION_JSON);
-//         HttpEntity<AuthSignupReq> request = new HttpEntity<>(
-//             signupReq,
-//             headers
-//         );
-//         try {
-//             restTemplate.postForEntity(
-//                 baseUrl() + "/api/auth/signup",
-//                 request,
-//                 String.class
-//             );
-//         } catch (Exception ignored) {}
-//     }
-//     private String loginAndGetToken() {
-//         AuthSigninReq loginReq = new AuthSigninReq(email, password);
-//         HttpHeaders headers = new HttpHeaders();
-//         headers.setContentType(MediaType.APPLICATION_JSON);
-//         HttpEntity<AuthSigninReq> request = new HttpEntity<>(loginReq, headers);
-//         ResponseEntity<String> response = restTemplate.postForEntity(
-//             baseUrl() + "/api/auth/signin",
-//             request,
-//             String.class
-//         );
-//         assertEquals(HttpStatus.OK, response.getStatusCode());
-//         try {
-//             JsonNode json = objectMapper.readTree(response.getBody());
-//             return json.get("accessToken").asText();
-//         } catch (Exception e) {
-//             throw new RuntimeException(e);
-//         }
-//     }
-//     private HttpHeaders authHeaders(String token) {
-//         HttpHeaders headers = new HttpHeaders();
-//         headers.setContentType(MediaType.APPLICATION_JSON);
-//         headers.setBearerAuth(token);
-//         return headers;
-//     }
-//     @Test
-//     void should_get_all_topics() {
-//         String token = loginAndGetToken();
-//         System.out.println("GET ALL TOPICS TOKEN:");
-//         System.out.println(token);
-//         HttpEntity<Void> request = new HttpEntity<>(authHeaders(token));
-//         ResponseEntity<String> response = restTemplate.exchange(
-//             baseUrl() + "/api/topic",
-//             HttpMethod.GET,
-//             request,
-//             String.class
-//         );
-//         assertEquals(HttpStatus.OK, response.getStatusCode());
-//         assertNotNull(response.getBody());
-//     }
-//     @Test
-//     void should_get_topics_with_subscription_flag() {
-//         String token = loginAndGetToken();
-//         HttpEntity<Void> request = new HttpEntity<>(authHeaders(token));
-//         ResponseEntity<String> response = restTemplate.exchange(
-//             baseUrl() + "/api/topic/with-am-i-subscribed",
-//             HttpMethod.GET,
-//             request,
-//             String.class
-//         );
-//         assertEquals(HttpStatus.OK, response.getStatusCode());
-//         assertNotNull(response.getBody());
-//     }
-//     @Test
-//     void should_get_only_subscribed_topics() {
-//         String token = loginAndGetToken();
-//         HttpEntity<Void> request = new HttpEntity<>(authHeaders(token));
-//         ResponseEntity<String> response = restTemplate.exchange(
-//             baseUrl() + "/api/topic/only-subscribed",
-//             HttpMethod.GET,
-//             request,
-//             String.class
-//         );
-//         assertEquals(HttpStatus.OK, response.getStatusCode());
-//         assertNotNull(response.getBody());
-//     }
-// }
+package com.openclassroom.mdd.mddapi.controllers;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassroom.mdd.mddauth.dtos.AuthSignRes;
+import com.openclassroom.mdd.mddauth.dtos.AuthSignupReq;
+import java.util.UUID;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
+@SpringBootTest
+@Transactional
+@AutoConfigureMockMvc
+class TopicControllerIntegrationTest {
+
+    private static final String PASSWORD = "password";
+    private static final String USER_AGENT = "TEST_AGENT";
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
+    @Test
+    @DisplayName("Should get all topics")
+    void should_get_all_topics() throws Exception {
+        AuthSignRes tokens = signupAndGetTokens();
+
+        mockMvc
+            .perform(
+                get("/api/topic")
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @DisplayName(
+        "Should get topics with subscription status when authenticated"
+    )
+    void should_get_topics_with_subscription() throws Exception {
+        AuthSignRes tokens = signupAndGetTokens();
+
+        mockMvc
+            .perform(
+                get("/api/topic/with-am-i-subscribed")
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @DisplayName("Should get only subscribed topics when authenticated")
+    void should_get_only_subscribed_topics() throws Exception {
+        AuthSignRes tokens = signupAndGetTokens();
+
+        mockMvc
+            .perform(
+                get("/api/topic/only-subscribed")
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$").isArray());
+    }
+
+    @Test
+    @DisplayName(
+        "Should return 401 when no token provided for protected endpoints"
+    )
+    void should_fail_without_token() throws Exception {
+        mockMvc
+            .perform(get("/api/topic/with-am-i-subscribed"))
+            .andExpect(status().isUnauthorized());
+
+        mockMvc
+            .perform(get("/api/topic/only-subscribed"))
+            .andExpect(status().isUnauthorized());
+    }
+
+    private AuthSignRes signupAndGetTokens() throws Exception {
+        String id = UUID.randomUUID().toString().substring(0, 8);
+
+        String email = id + "@test.com";
+        String username = "user_" + id;
+
+        AuthSignupReq req = new AuthSignupReq(email, username, PASSWORD);
+
+        String response = mockMvc
+            .perform(
+                post("/auth/signup")
+                    .contentType("application/json")
+                    .content(objectMapper.writeValueAsString(req))
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse()
+            .getContentAsString();
+
+        JsonNode node = objectMapper.readTree(response);
+
+        return new AuthSignRes(
+            node.get("refreshToken").asText(),
+            node.get("accessToken").asText()
+        );
+    }
+}
