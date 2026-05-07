@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,7 +44,7 @@ class UserServiceTest {
             Optional.empty()
         );
 
-        assertThrows(AuthExceptions.AccountNotFound.class, () ->
+        assertThrows(EntityNotFoundException.class, () ->
             userService.getUserByUsernameOrEmail("unknown")
         );
     }

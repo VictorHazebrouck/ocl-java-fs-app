@@ -1,8 +1,8 @@
 package com.openclassroom.mdd.mddauth.services;
 
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +16,7 @@ public class UserService {
         throws RuntimeException {
         return userRepository
             .getByUsernameOrEmail(usernameOrEmail)
-            .orElseThrow(() -> new AuthExceptions.AccountNotFound());
+            .orElseThrow(() -> new EntityNotFoundException());
     }
 
     public boolean userAlreadyExistsByUsernameOrEmail(String usernameOrEmail) {

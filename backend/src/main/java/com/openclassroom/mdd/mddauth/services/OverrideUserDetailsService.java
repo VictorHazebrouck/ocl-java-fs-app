@@ -1,7 +1,7 @@
 package com.openclassroom.mdd.mddauth.services;
 
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +18,6 @@ public class OverrideUserDetailsService implements UserDetailsService {
         throws RuntimeException {
         return userRepository
             .getByUsername(username)
-            .orElseThrow(() -> new AuthExceptions.UserNotFound());
+            .orElseThrow(() -> new EntityNotFoundException());
     }
 }

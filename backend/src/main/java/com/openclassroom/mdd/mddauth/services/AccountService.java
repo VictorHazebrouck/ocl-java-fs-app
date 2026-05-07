@@ -2,9 +2,10 @@ package com.openclassroom.mdd.mddauth.services;
 
 import com.openclassroom.mdd.mddauth.entities.Account;
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.AccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +38,12 @@ public class AccountService {
         throws RuntimeException {
         Account account = accountRepository
             .getByUserIdAndProviderId(user.getId(), Account.ProviderId.PASSWORD)
-            .orElseThrow(() -> new AuthExceptions.AccountNotFound());
+            .orElseThrow(() ->
+                new EntityNotFoundException("Password account not found")
+            );
 
         if (!passwordEncoder.matches(password, account.getPassword())) {
-            throw new AuthExceptions.WrongPassword();
+            throw new BadCredentialsException("Invalid password");
         }
 
         return account;
@@ -50,7 +53,9 @@ public class AccountService {
         throws RuntimeException {
         Account account = accountRepository
             .getByUserIdAndProviderId(user.getId(), Account.ProviderId.GOOGLE)
-            .orElseThrow(() -> new AuthExceptions.AccountNotFound());
+            .orElseThrow(() ->
+                new EntityNotFoundException("Google account not found")
+            );
 
         return account;
     }

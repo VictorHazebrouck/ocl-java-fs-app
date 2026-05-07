@@ -5,11 +5,12 @@ import static org.mockito.Mockito.*;
 
 import com.openclassroom.mdd.mddauth.entities.Account;
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.AccountRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 class AccountServiceTest {
@@ -102,7 +103,7 @@ class AccountServiceTest {
             )
         ).thenReturn(Optional.empty());
 
-        assertThrows(AuthExceptions.AccountNotFound.class, () ->
+        assertThrows(EntityNotFoundException.class, () ->
             accountService.loginPassword(user, "pass")
         );
     }
@@ -124,7 +125,7 @@ class AccountServiceTest {
 
         when(passwordEncoder.matches("wrong", "hashed-pass")).thenReturn(false);
 
-        assertThrows(AuthExceptions.WrongPassword.class, () ->
+        assertThrows(BadCredentialsException.class, () ->
             accountService.loginPassword(user, "wrong")
         );
     }

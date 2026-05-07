@@ -8,7 +8,6 @@ import com.openclassroom.mdd.mddauth.services.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,17 +21,16 @@ class JwtAuthenticationFilterTest {
     void setUp() {
         tokenService = mock(TokenService.class);
         filter = new JwtAuthenticationFilter(tokenService);
-
         SecurityContextHolder.clearContext();
     }
 
     @Test
     void shouldSkipAuthEndpoints() throws Exception {
         HttpServletRequest req = mock(HttpServletRequest.class);
-        when(req.getServletPath()).thenReturn("/auth/signin");
-
         HttpServletResponse res = mock(HttpServletResponse.class);
         FilterChain chain = mock(FilterChain.class);
+
+        when(req.getServletPath()).thenReturn("/auth/signin");
 
         filter.doFilter(req, res, chain);
 
@@ -41,33 +39,13 @@ class JwtAuthenticationFilterTest {
     }
 
     @Test
-    void shouldRejectWhenNoAuthorizationHeader() throws Exception {
-        HttpServletRequest req = mock(HttpServletRequest.class);
-        when(req.getServletPath()).thenReturn("/articles");
-
-        when(req.getHeader("Authorization")).thenReturn(null);
-
-        HttpServletResponse res = mock(HttpServletResponse.class);
-        PrintWriter writer = mock(PrintWriter.class);
-        when(res.getWriter()).thenReturn(writer);
-
-        FilterChain chain = mock(FilterChain.class);
-
-        filter.doFilter(req, res, chain);
-
-        verify(res).setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        verify(writer).write("Missing or invalid Authorization header");
-        verifyNoInteractions(chain);
-    }
-
-    @Test
     void shouldAuthenticateValidToken() throws Exception {
         HttpServletRequest req = mock(HttpServletRequest.class);
-        when(req.getServletPath()).thenReturn("/articles");
-        when(req.getHeader("Authorization")).thenReturn("Bearer valid-token");
-
         HttpServletResponse res = mock(HttpServletResponse.class);
         FilterChain chain = mock(FilterChain.class);
+
+        when(req.getServletPath()).thenReturn("/articles");
+        when(req.getHeader("Authorization")).thenReturn("Bearer valid-token");
 
         UserDto dto = new UserDto(
             1L,
@@ -83,6 +61,7 @@ class JwtAuthenticationFilterTest {
         filter.doFilter(req, res, chain);
 
         assertNotNull(SecurityContextHolder.getContext().getAuthentication());
+        verify(tokenService).decodeAccessToken("valid-token");
         verify(chain).doFilter(req, res);
     }
 }

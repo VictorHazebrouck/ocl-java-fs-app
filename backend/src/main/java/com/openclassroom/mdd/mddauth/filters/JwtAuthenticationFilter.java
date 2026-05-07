@@ -23,35 +23,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final TokenService tokenService;
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) {
-        String path = request.getServletPath();
-        return (
-            path.equals("/auth/signin") ||
-            path.equals("/auth/signup") ||
-            path.equals("/auth/refresh")
-        );
-    }
-
-    @Override
     protected void doFilterInternal(
         HttpServletRequest req,
         HttpServletResponse res,
         FilterChain filterChain
     ) throws ServletException, IOException {
-        System.out.println("New doFilterInternal request:");
-        System.out.println(req.getHeader("referer"));
-
         String authHeader = req.getHeader("Authorization");
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            System.out.println("Missing bearer!");
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.getWriter().write("Missing or invalid Authorization header");
+            filterChain.doFilter(req, res);
             return;
         }
 
-        String token = authHeader.substring(7);
         try {
+            String token = authHeader.substring(7);
             UserDto userDto = tokenService.decodeAccessToken(token);
             User user = UserMapper.INSTANCE.fromDto(userDto);
             UsernamePasswordAuthenticationToken auth =
@@ -64,12 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 new WebAuthenticationDetailsSource().buildDetails(req)
             );
             SecurityContextHolder.getContext().setAuthentication(auth);
+            filterChain.doFilter(req, res);
         } catch (Exception e) {
-            System.out.println("Invalid JWT: " + e.getMessage());
-            res.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            res.getWriter().write("Invalid JWT");
-            return;
+            filterChain.doFilter(req, res);
         }
-        filterChain.doFilter(req, res);
     }
 }

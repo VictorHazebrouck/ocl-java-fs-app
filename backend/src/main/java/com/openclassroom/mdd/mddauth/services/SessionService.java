@@ -3,10 +3,10 @@ package com.openclassroom.mdd.mddauth.services;
 import com.openclassroom.mdd.mddauth.dtos.AuthBrowserReqCtx;
 import com.openclassroom.mdd.mddauth.entities.Session;
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.SessionRepository;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +22,7 @@ public class SessionService {
         String refreshTokenHash = tokenService.hashRefreshToken(refreshToken);
         return sessionRepository
             .getByTokenHash(refreshTokenHash)
-            .orElseThrow(() -> new AuthExceptions.SessionNotFound());
+            .orElseThrow(() -> new BadCredentialsException(""));
     }
 
     public String createSession(AuthBrowserReqCtx ctx, User user) {
@@ -60,15 +60,18 @@ public class SessionService {
      * If new ctx is suspicious (same token, but different ip or useragent) throw
      * Create new session and return refreshToken
      */
+    @Transactional
     public String refreshSession(AuthBrowserReqCtx ctx, String refreshToken) {
-        Session oldSession = getSessionByToken(refreshToken);
+        Session session = getSessionByToken(refreshToken);
 
-        User user = oldSession.getUser();
-        sessionRepository.delete(oldSession);
-
-        if (isSessionSuspicious(ctx, oldSession)) {
-            throw new AuthExceptions.SessionSuspicious();
+        if (isSessionSuspicious(ctx, session)) {
+            sessionRepository.delete(session);
+            throw new BadCredentialsException("Suspicious session detected");
         }
+
+        User user = session.getUser();
+
+        sessionRepository.delete(session);
 
         return createSession(ctx, user);
     }
@@ -77,12 +80,9 @@ public class SessionService {
         AuthBrowserReqCtx ctx,
         Session session
     ) {
-        if (!ctx.getIpAddress().equals(session.getIpAddress())) {
-            return true;
-        }
-        if (!ctx.getUserAgent().equals(session.getUserAgent())) {
-            return true;
-        }
-        return false;
+        return (
+            !ctx.getIpAddress().equals(session.getIpAddress()) ||
+            !ctx.getUserAgent().equals(session.getUserAgent())
+        );
     }
 }

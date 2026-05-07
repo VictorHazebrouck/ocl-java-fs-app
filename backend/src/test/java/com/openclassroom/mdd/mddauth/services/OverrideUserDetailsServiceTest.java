@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class OverrideUserDetailsServiceTest {
             Optional.empty()
         );
 
-        assertThrows(AuthExceptions.UserNotFound.class, () ->
+        assertThrows(EntityNotFoundException.class, () ->
             service.loadUserByUsername("missing")
         );
 

@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 import com.openclassroom.mdd.mddauth.dtos.AuthBrowserReqCtx;
 import com.openclassroom.mdd.mddauth.entities.Session;
 import com.openclassroom.mdd.mddauth.entities.User;
-import com.openclassroom.mdd.mddauth.exceptions.AuthExceptions;
 import com.openclassroom.mdd.mddauth.repositories.SessionRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -14,6 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.authentication.BadCredentialsException;
 
 @ExtendWith(MockitoExtension.class)
 class SessionServiceTest {
@@ -54,7 +54,7 @@ class SessionServiceTest {
             Optional.empty()
         );
 
-        assertThrows(AuthExceptions.SessionNotFound.class, () ->
+        assertThrows(BadCredentialsException.class, () ->
             sessionService.getSessionByToken("token")
         );
     }
@@ -174,7 +174,7 @@ class SessionServiceTest {
 
         doNothing().when(sessionRepository).delete(oldSession);
 
-        assertThrows(AuthExceptions.SessionSuspicious.class, () ->
+        assertThrows(BadCredentialsException.class, () ->
             sessionService.refreshSession(ctx, "token")
         );
     }
