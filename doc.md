@@ -407,6 +407,12 @@ Le projet répond aux besoins fonctionnels initiaux tout en garantissant :
 
 Les différentes phases de tests et d’optimisation ont permis d’obtenir une application stable et évolutive.
 
+# reports
+
+![](frontend/coverage-unit.png "")
+
+![](backend/jacoco-report.png "")
+
 # Screenshots
 
 ![](screenshots/1.png "")
