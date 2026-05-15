@@ -1,7 +1,9 @@
 # Documentation et rapport du projet MDD
 
-**Auteur :** [Nom et prénom de l’étudiant]  
-**Version :** 1.0.0  
+**Auteur :** Victor Hazebrouck 
+
+**Version :** 1.0.0 
+
 **Date :** 15/05/2026  
 
 ---
