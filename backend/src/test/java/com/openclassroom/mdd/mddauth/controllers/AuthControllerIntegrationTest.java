@@ -131,6 +131,76 @@ class AuthControllerIntegrationTest {
             .andExpect(status().isUnauthorized());
     }
 
+    @Test
+    @DisplayName("Password endpoint should update password")
+    void password_should_update_password() throws Exception {
+        Credentials credentials = createUser();
+
+        AuthSignRes tokens = signin(
+            credentials.email(),
+            credentials.password()
+        );
+
+        String newPassword = "new-password-123";
+
+        AuthSetPasswordReq req = new AuthSetPasswordReq(newPassword);
+
+        mockMvc
+            .perform(
+                post("/auth/password")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(req))
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().string("true"));
+    }
+
+    @Test
+    @DisplayName("Username endpoint should update username")
+    void username_should_update_username() throws Exception {
+        Credentials credentials = createUser();
+
+        AuthSignRes tokens = signin(
+            credentials.email(),
+            credentials.password()
+        );
+
+        String newUsername = "updated_username";
+
+        AuthSetUsernameReq req = new AuthSetUsernameReq(newUsername);
+
+        mockMvc
+            .perform(
+                post("/auth/username")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(req))
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(content().string("true"));
+
+        mockMvc
+            .perform(
+                get("/auth/user")
+                    .header(
+                        "Authorization",
+                        "Bearer " + tokens.getAccessToken()
+                    )
+                    .header("User-Agent", USER_AGENT)
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.username").value(newUsername));
+    }
+
     // ---------------- helpers ----------------
 
     private AuthSignRes signup() throws Exception {
