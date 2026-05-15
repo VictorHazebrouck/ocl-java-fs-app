@@ -90,6 +90,12 @@
             }
           }
         },
+        "serve-coverage": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "buildTarget": "mddweb:build:e2e"
+          }
+        },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
@@ -106,13 +112,14 @@
         "e2e-ci": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "mddweb:serve",
-            "watch": true,
-            "headless": true
+            "browser": "chromium",
+            "devServerTarget": "mddweb:serve-coverage",
+            "headless": true,
+            "watch": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "mddweb:serve"
+              "devServerTarget": "mddweb:serve-coverage:production"
             }
           }
         },
