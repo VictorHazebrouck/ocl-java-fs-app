@@ -295,14 +295,10 @@ Des optimisations ont été appliquées afin d’améliorer :
 
 | Critère | Score |
 |---|---|
-| Performance | 92 |
-| Accessibilité | 95 |
+| Performance | 53 |
+| Accessibilité | 64 |
 | Bonnes pratiques | 100 |
-| SEO | 91 |
-
-### Exemple d’amélioration
-
-Après optimisation des images et mise en place du lazy loading Angular, la performance Lighthouse est passée de 68 à 92.
+| SEO | 82 |
 
 ---
 
@@ -410,3 +406,35 @@ Le projet répond aux besoins fonctionnels initiaux tout en garantissant :
 - qualité logicielle.
 
 Les différentes phases de tests et d’optimisation ont permis d’obtenir une application stable et évolutive.
+
+# Screenshots
+
+![](screenshots/1.png "")
+
+![](screenshots/2.png "")
+
+![](screenshots/3.png "")
+
+![](screenshots/4.png "")
+
+![](screenshots/5.png "")
+
+![](screenshots/6.png "")
+
+![](screenshots/7.png "")
+
+![](screenshots/8.png "")
+
+![](screenshots/9.png "")
+
+![](screenshots/10.png "")
+
+![](screenshots/11.png "")
+
+![](screenshots/12.png "")
+
+![](screenshots/13.png "")
+
+![](screenshots/14.png "")
+
+![](screenshots/15.png "")
