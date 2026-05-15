@@ -93,8 +93,27 @@
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
+            "devServerTarget": "mddweb:serve",
             "watch": true,
             "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mddweb:serve"
+            }
+          }
+        },
+        "e2e-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "mddweb:serve",
+            "watch": true,
+            "headless": true
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "mddweb:serve"
+            }
           }
         },
         "lint": {
